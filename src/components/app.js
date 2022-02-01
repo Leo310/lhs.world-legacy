@@ -5,45 +5,50 @@ import Name from "./name";
 function App() {
   return (
     <>
-      <div className="imge">
-        <img className="imge1" src={require("./PB3.png")} alt=""></img>
-        <img className="imge1" src={require("./PB3.png")} alt=""></img>
-        <img className="imge1" src={require("./PB3.png")} alt=""></img>
-        <img className="imge1" src={require("./PB3.png")} alt=""></img>
-        <img className="imge1" src={require("./PB3.png")} alt=""></img>
-        <img className="imge1" src={require("./PB3.png")} alt=""></img>
-        <img className="imge1" src={require("./PB3.png")} alt=""></img>
-        <img className="imge1" src={require("./PB3.png")} alt=""></img>
-
-        <img className="imge1" src={require("./PB3.png")} alt=""></img>
-        <img className="imge1" src={require("./PB3.png")} alt=""></img>
-        <img className="imge1" src={require("./PB3.png")} alt=""></img>
-        <img className="imge1" src={require("./PB3.png")} alt=""></img>
-        <img className="imge1" src={require("./PB3.png")} alt=""></img>
-        <img className="imge1" src={require("./PB3.png")} alt=""></img>
-        <img className="imge1" src={require("./PB3.png")} alt=""></img>
-        <img className="imge1" src={require("./PB3.png")} alt=""></img>
-
-        <img className="imge1" src={require("./PB3.png")} alt=""></img>
-        <img className="imge1" src={require("./PB3.png")} alt=""></img>
-        <img className="imge1" src={require("./PB3.png")} alt=""></img>
-        <img className="imge1" src={require("./PB3.png")} alt=""></img>
-        <img className="imge1" src={require("./PB3.png")} alt=""></img>
-        <img className="imge1" src={require("./PB3.png")} alt=""></img>
-        <img className="imge1" src={require("./PB3.png")} alt=""></img>
-        <img className="imge1" src={require("./PB3.png")} alt=""></img>
-
-        <img className="imge1" src={require("./PB3.png")} alt=""></img>
-        <img className="imge1" src={require("./PB3.png")} alt=""></img>
-        <img className="imge1" src={require("./PB3.png")} alt=""></img>
-        <img className="imge1" src={require("./PB3.png")} alt=""></img>
-        <img className="imge1" src={require("./PB3.png")} alt=""></img>
-        <img className="imge1" src={require("./PB3.png")} alt=""></img>
-        <img className="imge1" src={require("./PB3.png")} alt=""></img>
-        <img className="imge1" src={require("./PB3.png")} alt=""></img>
-      </div>
       <Clock />
       <Name />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
     </>
   );
 }

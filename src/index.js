@@ -6,71 +6,127 @@ import * as THREE from "three";
 
 import App from "./components/app";
 
-const geometry = new THREE.BoxGeometry();
-const material = new THREE.MeshBasicMaterial({ color: 0x50fa7b });
-const cube = new THREE.Mesh(geometry, material);
+import Threeobject from "./threeobjects/threeobject.js";
+import Cursor from "./threeobjects/cursor.js";
+import Skills from "./threeobjects/skills.js";
+import Lines from "./threeobjects/lines.js";
 
-const renderer = new THREE.WebGLRenderer();
-renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement);
-
-// const camera = new THREE.PerspectiveCamera(
-//   45,
-//   window.innerWidth / window.innerHeight,
-//   1,
-//   500
-// );
-// camera.position.set(0, 0, 30);
-// camera.lookAt(0, 0, 0);
-const camera = new THREE.OrthographicCamera(-20, 20, 20, -20, -50, 50);
-// let canvas = renderer.domElement;
-let body = document.body;
-body.addEventListener("mousemove", updateDisplay, false);
 let mouseX = 0;
 let mouseY = 0;
+document.body.addEventListener("mousemove", updateDisplay, false);
+document.body.addEventListener("mouseenter", updateDisplay, false);
+document.body.addEventListener("mouseleave", updateDisplay, false);
 function updateDisplay(event) {
   mouseX = event.pageX;
-  mouseY = event.pageY;
+  mouseY = event.pageY + document.body.getBoundingClientRect().top;
 }
 
-body.addEventListener("mouseenter", updateDisplay, false);
-body.addEventListener("mouseleave", updateDisplay, false);
+let scrollPosition = 0;
+window.addEventListener("scroll", () => {
+  scrollPosition = window.scrollY;
+});
 
-const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x21222c);
-//create a blue LineBasicMaterial
-const material2 = new THREE.LineBasicMaterial({ color: 0x6272a4 });
-const points = [];
-points.push(new THREE.Vector3(-20, -1, 0));
-points.push(new THREE.Vector3(0, 10, 0));
-points.push(new THREE.Vector3(20, -1, 0));
+function main() {
+  // // face
+  // let picWidth = 528 / 150;
+  // let picHeight = 595 / 150;
+  // const faceTexture = new THREE.TextureLoader().load(
+  //   require("./components/PB3.png")
+  // );
+  // const faceGeometry = new THREE.PlaneGeometry(picWidth, picHeight);
+  // const faceMaterial = new THREE.MeshBasicMaterial({
+  //   map: faceTexture,
+  //   transparent: true,
+  //   opacity: 0.6,
+  // });
+  // let faceArray = [];
+  // for (let i = 0; i < 12; i++) {
+  //   let face = new THREE.Mesh(faceGeometry, faceMaterial);
+  //   faceArray.push(face);
+  //   // face.translateX(-20);
+  //   // face.translateY(20);
+  //   face.translateX(picWidth / 2);
+  //   face.translateY(-picHeight / 2);
+  //   face.translateX(i * (picWidth - 0.5));
+  //   // scene.add(face);
+  // }
+  // // cube.translateY(10);
 
-const geometry2 = new THREE.BufferGeometry().setFromPoints(points);
-const line = new THREE.Line(geometry2, material2);
+  //   const sphere = new THREE.Mesh(
+  //     new THREE.SphereGeometry(5),
+  //     new THREE.MeshBasicMaterial({ map: faceTexture, color: 0xffffff })
+  //   );
 
-const material3 = new THREE.LineBasicMaterial({ color: 0x6272a4 });
-const points2 = [];
-points2.push(new THREE.Vector3(-20, 1, 0));
-points2.push(new THREE.Vector3(0, -10, 0));
-points2.push(new THREE.Vector3(20, 1, 0));
+  // helper
+  // const gridHelper = new THREE.GridHelper(200, 200);
 
-const geometry3 = new THREE.BufferGeometry().setFromPoints(points2);
-const line2 = new THREE.Line(geometry3, material3);
-scene.add(line);
-scene.add(line2);
-scene.add(cube);
+  let sceneThreeobjects = [new Skills()];
+  let sceneCursorThreeobjects = [new Cursor(), new Lines()];
 
-function animate() {
-  requestAnimationFrame(animate);
-  renderer.render(scene, camera);
-  cube.position.set(
-    ((mouseX - window.innerWidth / 2) / (window.innerWidth / 2)) * 20,
-    (-(mouseY - window.innerHeight / 2) / (window.innerHeight / 2)) * 20,
-    5
+  //renderer
+  const renderer = new THREE.WebGLRenderer();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  document.body.appendChild(renderer.domElement);
+
+  //camera
+  const camera = new THREE.PerspectiveCamera(
+    90,
+    window.innerWidth / window.innerHeight,
+    1,
+    500
   );
-  cube.rotation.x += 0.01;
-  cube.rotation.y += 0.01;
-}
-animate();
+  camera.position.set(0, 0, 30);
+  camera.lookAt(0, 0, 0);
+  const orthocam = new THREE.OrthographicCamera(-100, 100, 100, -100, -50, 50);
+  // camera.rotateX(20);
+  // camera.rotateY(20);
 
+  // scene
+  const scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x21222c);
+
+  const sceneCursor = new THREE.Scene();
+
+  sceneThreeobjects.forEach((element) => {
+    element.meshes.forEach((mesh) => {
+      scene.add(mesh);
+    });
+  });
+  sceneCursorThreeobjects.forEach((element) => {
+    element.meshes.forEach((mesh) => {
+      sceneCursor.add(mesh);
+    });
+  });
+
+  // scene.add(gridHelper);
+  function render() {
+    requestAnimationFrame(render);
+    renderer.render(scene, camera);
+    renderer.autoClear = false;
+    renderer.render(sceneCursor, orthocam);
+
+    Threeobject.prototype.update(mouseX, mouseY, scrollPosition);
+    sceneThreeobjects.concat(sceneCursorThreeobjects).forEach((element) => {
+      element.update();
+    });
+
+    camera.position.set(
+      ((mouseX - window.innerWidth / 2) / (window.innerWidth / 2)) * 100,
+      (-(mouseY - window.innerHeight / 2) / (window.innerHeight / 2)) * 100
+    );
+    // faceArray.forEach((element, i) => {
+    //   element.position.setX(
+    //     cube.position.x +
+    //       i * (picWidth - 0.5) +
+    //       Math.cos((angle / 180) * Math.PI) * 7 -
+    //       7
+    //   );
+    //   // element.rotateZ(0.01);
+    //   element.position.setZ(Math.sin((angle / 180) * Math.PI) * 7);
+    //   // element.position.setX(Math.cos((a / 180) * Math.PI));
+    // });
+  }
+  render();
+}
+main();
 ReactDOM.render(<App />, document.getElementById("root"));
