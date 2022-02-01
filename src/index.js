@@ -84,6 +84,7 @@ function main() {
   // scene
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(0x21222c);
+  // scene.background = new THREE.Color(0x282a36);
 
   const sceneCursor = new THREE.Scene();
 
@@ -110,10 +111,11 @@ function main() {
       element.update();
     });
 
-    camera.position.set(
-      ((mouseX - window.innerWidth / 2) / (window.innerWidth / 2)) * 100,
-      (-(mouseY - window.innerHeight / 2) / (window.innerHeight / 2)) * 100
-    );
+    // camera.position.set(
+    //   ((mouseX - window.innerWidth / 2) / (window.innerWidth / 2)) * 100,
+    //   (-(mouseY - window.innerHeight / 2) / (window.innerHeight / 2)) * 100
+    // );
+
     // faceArray.forEach((element, i) => {
     //   element.position.setX(
     //     cube.position.x +

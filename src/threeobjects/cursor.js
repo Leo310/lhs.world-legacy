@@ -9,7 +9,7 @@ export default function Cursor() {
   Threeobject.call(this);
 
   this.cursorMesh = new THREE.Mesh(
-    new THREE.DodecahedronGeometry(2),
+    new THREE.DodecahedronGeometry(4),
     new THREE.MeshBasicMaterial({
       color: 0x50fa7b,
       wireframe: true,
