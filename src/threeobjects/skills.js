@@ -48,6 +48,7 @@ export default function Skills() {
 
   const iconsize = 5;
   this.radius = 14;
+  this.updatesPerSecond = 60;
   this.iconmeshes = [
     iconMesh(iconsize, require("../resources/newcolor/git.png")),
     iconMesh(iconsize, require("../resources/newcolor/cpp.png")),
@@ -74,42 +75,41 @@ export default function Skills() {
     element.position.set(18, 10);
   });
 
-  this.angle = 0;
+  this.currentAngle = 0;
+  this.anglePerSecond = 45;
+
   this.lastTime = 0;
 
-  this.lastZPositions = [];
-  this.lastZCube = 0;
+  this.lastScrollPosition = 0;
 }
 
 Skills.prototype.update = function () {
   let frametime = (window.performance.now() - this.lastTime) / 1000;
+
   this.cube.position.z = -this.scrollPosition / 4;
   this.wireframe.position.z = -this.scrollPosition / 4;
-
-  this.iconmeshes.forEach((element, index) => {
-    element.position.z =
-      this.lastZPositions[index] + this.cube.position.z - this.lastZCube;
+  this.iconmeshes.forEach((element) => {
+    element.position.z += (this.lastScrollPosition - this.scrollPosition) / 4;
   });
+  this.lastScrollPosition = this.scrollPosition;
 
-  if (frametime > 1 / 60) {
-    this.angle += (360 / this.iconmeshes.length / 60 / 180) * Math.PI;
+  if (frametime >= 1 / this.updatesPerSecond) {
+    this.currentAngle +=
+      (this.anglePerSecond / this.updatesPerSecond / 180) * Math.PI;
+
     let offset = 0;
     this.iconmeshes.forEach((element) => {
-      element.position.setX(
-        this.cube.position.x + Math.cos(this.angle - offset) * this.radius
-      );
-      element.position.setZ(
-        this.cube.position.z + Math.sin(this.angle - offset) * this.radius
-      );
+      element.position.x =
+        this.cube.position.x +
+        Math.cos(this.currentAngle - offset) * this.radius;
+      element.position.z =
+        this.cube.position.z +
+        Math.sin(this.currentAngle - offset) * this.radius;
       offset += (360 / this.iconmeshes.length / 180) * Math.PI;
     });
-    this.lastTime = window.performance.now();
 
-    this.iconmeshes.forEach((element, index) => {
-      this.lastZPositions[index] = element.position.z;
-    });
-    this.lastZCube = this.cube.position.z;
-    this.cube.rotateY(0.002);
-    this.wireframe.rotateY(0.002);
+    this.lastTime = window.performance.now();
   }
+  this.cube.rotateY(0.002);
+  this.wireframe.rotateY(0.002);
 };

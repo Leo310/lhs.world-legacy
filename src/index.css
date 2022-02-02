@@ -39,7 +39,15 @@ canvas {
 }
 
 .name {
-  color: #bd93f9;
+  background-position: 0% top;
+  /* background: -webkit-linear-gradient(#8be9fd, #bd93f9); */
+  background: linear-gradient(to bottom, #8be9fd 12%, #bd93f9 60%);
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+
+  /* color: #bd93f9; */
   margin: 0;
   top: 82%;
   left: 30%;

@@ -17,8 +17,8 @@ document.body.addEventListener("mousemove", updateDisplay, false);
 document.body.addEventListener("mouseenter", updateDisplay, false);
 document.body.addEventListener("mouseleave", updateDisplay, false);
 function updateDisplay(event) {
-  mouseX = event.pageX;
-  mouseY = event.pageY + document.body.getBoundingClientRect().top;
+  mouseX = event.clientX;
+  mouseY = event.clientY;
 }
 
 let scrollPosition = 0;
