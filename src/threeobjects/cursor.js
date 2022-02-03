@@ -19,10 +19,7 @@ export default function Cursor() {
 }
 
 Cursor.prototype.update = function () {
-  this.cursorMesh.position.set(
-    ((this.mouseX - window.innerWidth / 2) / (window.innerWidth / 2)) * 100,
-    (-(this.mouseY - window.innerHeight / 2) / (window.innerHeight / 2)) * 100
-  );
+  this.cursorMesh.position.set(this.mouseX * 100, this.mouseY * 100);
   this.cursorMesh.rotation.x += 0.01;
   this.cursorMesh.rotation.y += 0.01;
 };

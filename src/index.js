@@ -11,21 +11,6 @@ import Cursor from "./threeobjects/cursor.js";
 import Skills from "./threeobjects/skills.js";
 import Lines from "./threeobjects/lines.js";
 
-let mouseX = 0;
-let mouseY = 0;
-document.body.addEventListener("mousemove", updateDisplay, false);
-document.body.addEventListener("mouseenter", updateDisplay, false);
-document.body.addEventListener("mouseleave", updateDisplay, false);
-function updateDisplay(event) {
-  mouseX = event.clientX;
-  mouseY = event.clientY;
-}
-
-let scrollPosition = 0;
-window.addEventListener("scroll", () => {
-  scrollPosition = window.scrollY;
-});
-
 function main() {
   // // face
   // let picWidth = 528 / 150;
@@ -99,6 +84,30 @@ function main() {
     });
   });
 
+  let mouse = new THREE.Vector2();
+  let raycaster = new THREE.Raycaster();
+  document.body.addEventListener("mousemove", updateMouse, false);
+  document.body.addEventListener("mouseenter", updateMouse, false);
+  document.body.addEventListener("mouseleave", updateMouse, false);
+  document.body.addEventListener("mousedown", updateRaycaster, false);
+
+  function updateMouse(event) {
+    // normalized coordinates
+    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+  }
+  function updateRaycaster() {
+    raycaster.setFromCamera(mouse, camera);
+
+    let intersects = raycaster.intersectObjects(scene.children);
+    intersects.forEach((element) => console.log(element));
+  }
+
+  let scrollPosition = 0;
+  window.addEventListener("scroll", () => {
+    scrollPosition = window.scrollY;
+  });
+
   // scene.add(gridHelper);
   function render() {
     requestAnimationFrame(render);
@@ -106,27 +115,10 @@ function main() {
     renderer.autoClear = false;
     renderer.render(sceneCursor, orthocam);
 
-    Threeobject.prototype.update(mouseX, mouseY, scrollPosition);
+    Threeobject.prototype.update(mouse.x, mouse.y, scrollPosition);
     sceneThreeobjects.concat(sceneCursorThreeobjects).forEach((element) => {
       element.update();
     });
-
-    // camera.position.set(
-    //   ((mouseX - window.innerWidth / 2) / (window.innerWidth / 2)) * 100,
-    //   (-(mouseY - window.innerHeight / 2) / (window.innerHeight / 2)) * 100
-    // );
-
-    // faceArray.forEach((element, i) => {
-    //   element.position.setX(
-    //     cube.position.x +
-    //       i * (picWidth - 0.5) +
-    //       Math.cos((angle / 180) * Math.PI) * 7 -
-    //       7
-    //   );
-    //   // element.rotateZ(0.01);
-    //   element.position.setZ(Math.sin((angle / 180) * Math.PI) * 7);
-    //   // element.position.setX(Math.cos((a / 180) * Math.PI));
-    // });
   }
   render();
 }
