@@ -1,15 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
-
 import * as THREE from "three";
-
 import App from "./components/app";
-
-import Threeobject from "./threeobjects/threeobject.js";
+import "./index.css";
 import Cursor from "./threeobjects/cursor.js";
-import Skills from "./threeobjects/skills.js";
 import Lines from "./threeobjects/lines.js";
+import Skills from "./threeobjects/skills.js";
+import Threeobject from "./threeobjects/threeobject.js";
 
 function main() {
   // // face
@@ -52,6 +49,13 @@ function main() {
   const renderer = new THREE.WebGLRenderer();
   renderer.setSize(window.innerWidth, window.innerHeight);
   document.body.appendChild(renderer.domElement);
+  renderer.domElement.id = "canvas";
+
+  //renderer
+  const renderer2 = new THREE.WebGLRenderer({ alpha: true });
+  renderer2.setSize(window.innerWidth, window.innerHeight);
+  document.body.appendChild(renderer2.domElement);
+  renderer2.domElement.id = "canvas2";
 
   //camera
   const camera = new THREE.PerspectiveCamera(
@@ -113,7 +117,7 @@ function main() {
     requestAnimationFrame(render);
     renderer.render(scene, camera);
     renderer.autoClear = false;
-    renderer.render(sceneCursor, orthocam);
+    renderer2.render(sceneCursor, orthocam);
 
     Threeobject.prototype.update(mouse.x, mouse.y, scrollPosition);
     sceneThreeobjects.concat(sceneCursorThreeobjects).forEach((element) => {
