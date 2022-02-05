@@ -24,6 +24,15 @@ export default function SceneCursor(threecontainer) {
 
 SceneCursor.prototype.update = function () {
   this.renderer.render(this.scene, this.camera);
+  if (
+    this.renderer.domElement.width !== window.innerWidth ||
+    this.renderer.domElement.height !== window.innerHeight
+  ) {
+    this.renderer.setSize(window.innerWidth, window.innerHeight);
+
+    this.camera.aspect = window.innerWidth / window.innerHeight;
+    this.camera.updateProjectionMatrix();
+  }
   this.threeobjects.forEach((element) => {
     element.update();
   });
