@@ -1,13 +1,7 @@
 import * as THREE from "three";
 
-import Threeobject from "./threeobject.js";
-
-Lines.prototype = Object.create(Threeobject.prototype);
-Lines.prototype.constructor = Lines;
-
 export default function Lines() {
-  Threeobject.call(this);
-
+  this.meshes = [];
   const points = [];
   points.push(new THREE.Vector3(100, -50, 0));
   points.push(new THREE.Vector3(-60, 20, 0));

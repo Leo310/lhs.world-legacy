@@ -1,0 +1,30 @@
+import * as THREE from "three";
+
+import Cursor from "./cursor";
+import Lines from "./lines";
+
+export default function SceneCursor(threecontainer) {
+  this.threeobjects = [new Cursor(), new Lines()];
+  this.scene = new THREE.Scene();
+
+  this.threeobjects.forEach((element) => {
+    element.meshes.forEach((mesh) => {
+      this.scene.add(mesh);
+    });
+  });
+
+  //renderer
+  this.renderer = new THREE.WebGLRenderer({ alpha: true });
+  this.renderer.setSize(window.innerWidth, window.innerHeight);
+  threecontainer.appendChild(this.renderer.domElement);
+  this.renderer.domElement.id = "canvas2";
+
+  this.camera = new THREE.OrthographicCamera(-100, 100, 100, -100, -50, 50);
+}
+
+SceneCursor.prototype.update = function () {
+  this.renderer.render(this.scene, this.camera);
+  this.threeobjects.forEach((element) => {
+    element.update();
+  });
+};

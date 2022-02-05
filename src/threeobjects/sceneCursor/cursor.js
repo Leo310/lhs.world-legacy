@@ -1,16 +1,13 @@
 import * as THREE from "three";
 
-import Threeobject from "./threeobject.js";
-
-Cursor.prototype = Object.create(Threeobject.prototype);
-Cursor.prototype.constructor = Cursor;
+import globalstateobj from "../../globalstate";
 
 export default function Cursor() {
-  Threeobject.call(this);
-
+  this.meshes = [];
   this.cursorMesh = new THREE.Mesh(
-    new THREE.DodecahedronGeometry(4),
+    new THREE.OctahedronGeometry(4),
     new THREE.MeshBasicMaterial({
+      wireframeLinewidth: 2,
       color: 0x50fa7b,
       wireframe: true,
     })
@@ -19,7 +16,10 @@ export default function Cursor() {
 }
 
 Cursor.prototype.update = function () {
-  this.cursorMesh.position.set(this.mouseX * 100, this.mouseY * 100);
+  this.cursorMesh.position.set(
+    globalstateobj.mouseX * 100,
+    globalstateobj.mouseY * 100
+  );
   this.cursorMesh.rotation.x += 0.01;
   this.cursorMesh.rotation.y += 0.01;
 };
