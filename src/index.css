@@ -44,16 +44,18 @@ body {
   pointer-events: none;
   left: 5%;
   width: 60%;
-  height: 100%;
+  top: 60%;
+  height: 40%;
   position: fixed;
   z-index: 2;
   background: linear-gradient(
     to bottom,
-    #21222cff 55%,
-    #21222cf0 65%,
-    /* #21222ca0 80%, */ #21222c00 75%,
-    #21222c80 95%,
-    #21222cf0 100%
+    #21222cfa 5%,
+    #21222cf0 10%,
+    /* #21222ca0 80%, */ #21222c00 30%,
+    /* #21222ca0 80%, */ #21222c00 70%,
+    #21222cf0 90%,
+    #21222cfa 95%
   );
 }
 #loopcontent {
@@ -63,7 +65,8 @@ body {
   height: 40%;
   width: 50%;
   position: absolute;
-  overflow-y: scroll;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .name {
@@ -74,8 +77,6 @@ body {
   -moz-background-clip: text;
   -webkit-text-fill-color: transparent;
   -moz-text-fill-color: transparent;
-  /* padding-top: 10%; */
-  /* padding-bottom: 5%; */
 
   /* color: #bd93f9; */
   display: block;

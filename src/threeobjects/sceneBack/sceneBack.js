@@ -1,9 +1,9 @@
 import * as THREE from "three";
 
-import Skills from "./skills";
+import Magazine from "./magazine";
 
 export default function SceneBack(threecontainer) {
-  this.threeobjects = [new Skills()];
+  this.threeobjects = [new Magazine()];
 
   //renderer
   this.renderer = new THREE.WebGLRenderer({ alpha: true });
@@ -29,9 +29,7 @@ export default function SceneBack(threecontainer) {
   // scene.background = new THREE.Color(0x282a36);
 
   this.threeobjects.forEach((element) => {
-    element.meshes.forEach((mesh) => {
-      this.scene.add(mesh);
-    });
+    this.scene.add(element.group);
   });
 }
 
