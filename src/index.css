@@ -74,11 +74,11 @@ body {
   -moz-background-clip: text;
   -webkit-text-fill-color: transparent;
   -moz-text-fill-color: transparent;
-  padding-top: 10%;
-  padding-bottom: 5%;
+  /* padding-top: 10%; */
+  /* padding-bottom: 5%; */
 
   /* color: #bd93f9; */
-  /* display: block; */
+  display: block;
   margin: 0;
   /* transform: translate(-50%, -50%); */
   font-size: 4.2vw;
