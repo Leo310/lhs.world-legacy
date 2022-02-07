@@ -1,5 +1,4 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import Name from "./name";
 
 import globalstateobj from "../globalstate";
@@ -16,15 +15,18 @@ class Loopcontent extends React.Component {
       this.clonesHeight += this.clones[i].clientHeight;
 
     this.loop = document.getElementById("loopcontent");
+    // if scrolled in loopcontent, dont want to trigger wheel event in body. thats why second listener on wheel which stops propagation and set to true
+    this.loop.addEventListener("scroll", () => this.scrollCheck(), true);
+    this.loop.addEventListener("wheel", (e) => e.stopPropagation(), true);
     this.loop.scrollTop = 1; // to allow upwards scrolling
     this.scrollHeight = this.loop.scrollHeight;
     this.disableScrollCheck = false;
   }
   scrollCheck() {
-    console.log(this.loop.scrollTop, ",  ", this.scrollHeight);
+    // console.log(this.loop.scrollTop, ",  ", this.scrollHeight);
     if (!this.disableScrollCheck) {
       let scrollTop = this.loop.scrollTop;
-      globalstateobj.scrollPosition += scrollTop - this.lastScroll;
+      globalstateobj.scrollPositionLoop += scrollTop - this.lastScroll;
 
       this.lastScroll = scrollTop;
 
@@ -52,7 +54,7 @@ class Loopcontent extends React.Component {
     return (
       <>
         <div id="loopcover"></div>
-        <div onScroll={(e) => this.scrollCheck(e)} id="loopcontent">
+        <div id="loopcontent">
           <div style={{ paddingTop: "50px", height: "120px" }}>
             <Name />
           </div>
@@ -71,11 +73,28 @@ class Loopcontent extends React.Component {
               takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor
               sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
               tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
-              voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
-              Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum
-              dolor sit amet.
             </p>
           </div>
+          <div style={{ display: "block", height: "auto" }}>
+            <p
+              style={{
+                textAlign: "center",
+                color: "#8be9fd",
+                fontSize: "1.3vw",
+              }}
+            >
+              Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
+              nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
+              erat, sed diam voluptua. At vero eos et accusam et justo duo
+              dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
+              sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit
+            </p>
+          </div>
+          <br />
+          <br />
+          <h1>Sick Mukke</h1>
+          <br />
+          <br />
           <div style={{ display: "block", height: "auto" }}>
             <p
               style={{

@@ -1,6 +1,7 @@
 import * as THREE from "three";
 
 import Magazine from "./magazine";
+import globalstateobj from "../../globalstate";
 
 export default function SceneBack(threecontainer) {
   this.threeobjects = [new Magazine()];
@@ -27,15 +28,35 @@ export default function SceneBack(threecontainer) {
   this.scene = new THREE.Scene();
   // scene.background = new THREE.Color(0x21222c);
   // scene.background = new THREE.Color(0x282a36);
+  this.raycaster = new THREE.Raycaster();
 
   this.threeobjects.forEach((element) => {
     this.scene.add(element.group);
   });
 }
 
+SceneBack.prototype.updateRaycaster = function () {
+  let mousePos = new THREE.Vector2(
+    globalstateobj.mouseX,
+    globalstateobj.mouseY
+  );
+  this.raycaster.setFromCamera(mousePos, this.camera);
+
+  let intersects = this.raycaster.intersectObjects(this.scene.children);
+  if (intersects[0]) {
+    this.scene.traverse((child) => {
+      if (child.isMesh && intersects[0].object.uuid === child.uuid)
+        globalstateobj.clickedUuid = child.uuid;
+    });
+  }
+};
+
 SceneBack.prototype.update = function () {
   this.renderer.render(this.scene, this.camera);
   this.renderer.autoClear = false;
+
+  if (globalstateobj.raycasting) this.updateRaycaster();
+  globalstateobj.raycasting = false;
 
   if (
     this.renderer.domElement.width !== window.innerWidth ||

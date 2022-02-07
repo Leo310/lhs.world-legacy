@@ -69,7 +69,7 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
-.name {
+h1 {
   background-position: 0% top;
   /* background: -webkit-linear-gradient(#8be9fd, #bd93f9); */
   background: linear-gradient(to bottom, #8be9fd 40%, #bd93f9 60%);
@@ -79,12 +79,12 @@ body {
   -moz-text-fill-color: transparent;
 
   /* color: #bd93f9; */
-  display: block;
+  /* display: block; */
   margin: 0;
   /* transform: translate(-50%, -50%); */
   font-size: 4.2vw;
   text-align: center;
-  position: relative;
+  /* position: relative; */
   top: 0;
   left: 0;
 }
@@ -95,5 +95,5 @@ body {
   margin: 0;
   width: 100%;
   right: 1%;
-  text-align: right;
+  text-align: left;
 }

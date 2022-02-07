@@ -6,6 +6,7 @@ import Threecontainer from "./components/threecontainer";
 function App() {
   return (
     <>
+      <audio id="audio" src={require("./resources/music.wav")}></audio>
       <Clock />
       <Loopcontent />
       <Threecontainer />

@@ -2,6 +2,7 @@ import * as THREE from "three";
 
 import globalstateobj from "../../globalstate";
 import Skills from "./skills";
+import Audio from "./audio";
 
 export default function Magazine() {
   this.magazine = [
@@ -9,7 +10,7 @@ export default function Magazine() {
     new Skills(),
     new Skills(),
     new Skills(),
-    new Skills(),
+    new Audio(),
   ];
   this.radius = 30;
 
@@ -47,11 +48,11 @@ Magazine.prototype.update = function () {
     });
 
     this.currentAngle +=
-      (this.lastScrollPosition - globalstateobj.scrollPosition) /
+      (this.lastScrollPosition - globalstateobj.scrollPositionLoop) /
       this.updatesPerSecond /
       10; // needs some experimenting
 
-    this.lastScrollPosition = globalstateobj.scrollPosition;
+    this.lastScrollPosition = globalstateobj.scrollPositionLoop;
     this.lastTime = window.performance.now();
   }
 };
