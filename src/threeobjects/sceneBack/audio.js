@@ -4,17 +4,26 @@ import globalstateobj from "../../globalstate";
 
 export default function Audio() {
   this.icons = [
-    new Icon(5, require("../../resources/playbutton.png")),
-    new Icon(5, require("../../resources/pausebutton.png")),
+    new Icon(8, require("../../resources/playbutton.png")),
+    new Icon(8, require("../../resources/pausebutton.png")),
   ];
   this.icons[1].mesh.visible = false;
   this.group = new THREE.Group();
   this.icons.forEach((icon) => this.group.add(icon.mesh));
   this.audioElem = document.getElementById("audio");
 
+  this.ended = false;
+  this.audioElem.addEventListener("ended", () => {
+    this.icons[1].mesh.visible = false;
+    this.icons[1].mesh.position.z -= 1;
+    this.icons[0].mesh.visible = true;
+    this.icons[0].mesh.position.z += 1;
+    this.isPlaying = false;
+  });
+
   this.isPlaying = false;
 
-  this.lastTime = 0;
+  // this.lastTime = 0;
 }
 
 Audio.prototype.update = function () {
