@@ -5,7 +5,22 @@ import globalstateobj from "../../globalstate";
 export default function Audio() {
   this.icons = [
     new Icon(8, require("../../resources/playbutton.png")),
-    new Icon(8, require("../../resources/pausebutton.png")),
+    new Icon(
+      8,
+      require("../../resources/pausebutton.png"),
+      new THREE.Vector3(-0.5, -0.2, 0)
+    ),
+    // new Icon(10, require("../../resources/circle.png")),
+    new Icon(
+      5,
+      require("../../resources/nextbutton.png"),
+      new THREE.Vector3(8, 0, 0)
+    ),
+    new Icon(
+      5,
+      require("../../resources/previousbutton.png"),
+      new THREE.Vector3(-8, 0, 0)
+    ),
   ];
   this.icons[1].mesh.visible = false;
   this.group = new THREE.Group();

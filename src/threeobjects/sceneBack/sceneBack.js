@@ -7,7 +7,7 @@ export default function SceneBack(threecontainer) {
   this.threeobjects = [new Magazine()];
 
   //renderer
-  this.renderer = new THREE.WebGLRenderer({ alpha: true });
+  this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
   this.renderer.setSize(window.innerWidth, window.innerHeight);
   threecontainer.appendChild(this.renderer.domElement);
   this.renderer.domElement.id = "canvas";
@@ -26,7 +26,7 @@ export default function SceneBack(threecontainer) {
 
   // scene
   this.scene = new THREE.Scene();
-  // scene.background = new THREE.Color(0x21222c);
+  this.scene.background = new THREE.Color(0x21222c);
   // scene.background = new THREE.Color(0x282a36);
   this.raycaster = new THREE.Raycaster();
 

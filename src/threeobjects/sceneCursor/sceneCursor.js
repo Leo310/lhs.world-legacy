@@ -14,7 +14,7 @@ export default function SceneCursor(threecontainer) {
   });
 
   //renderer
-  this.renderer = new THREE.WebGLRenderer({ alpha: true });
+  this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
   this.renderer.setSize(window.innerWidth, window.innerHeight);
   threecontainer.appendChild(this.renderer.domElement);
   this.renderer.domElement.id = "canvas2";
