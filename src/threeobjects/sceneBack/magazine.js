@@ -3,13 +3,14 @@ import * as THREE from "three";
 import globalstateobj from "../../globalstate";
 import Skills from "./skills";
 import Audio from "./audio";
+import MyRoom from "./myroom";
 
 export default function Magazine() {
   this.magazine = [
     new Skills(),
     new Skills(),
     new Skills(),
-    new Skills(),
+    new MyRoom(),
     new Audio(),
   ];
   this.radius = 30;

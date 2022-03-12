@@ -127,6 +127,23 @@ class Loopcontent extends React.Component {
                 est Lorem ipsum dolor sit amet.
               </p>
             </div>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <h1>My Workspace</h1>
           </div>
           <div
             className="isclone"

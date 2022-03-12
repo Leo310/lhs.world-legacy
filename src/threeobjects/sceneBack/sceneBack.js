@@ -3,6 +3,10 @@ import * as THREE from "three";
 import Magazine from "./magazine";
 import globalstateobj from "../../globalstate";
 
+import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer";
+// import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass";
+// import { BloomPass } from "three/examples/jsm/postprocessing/BloomPass";
+
 export default function SceneBack(threecontainer) {
   this.threeobjects = [new Magazine()];
 
@@ -11,6 +15,8 @@ export default function SceneBack(threecontainer) {
   this.renderer.setSize(window.innerWidth, window.innerHeight);
   threecontainer.appendChild(this.renderer.domElement);
   this.renderer.domElement.id = "canvas";
+
+	this.composer = new EffectComposer(this.renderer)
 
   //camera
   this.camera = new THREE.PerspectiveCamera(
@@ -33,6 +39,14 @@ export default function SceneBack(threecontainer) {
   this.threeobjects.forEach((element) => {
     this.scene.add(element.group);
   });
+
+	const ambientLight = new THREE.AmbientLight( 0xffffff, 0.3);
+  this.scene.add(ambientLight)
+
+	// const renderPass = new RenderPass( this.scene, this.camera );
+	// this.composer.addPass( renderPass );
+	// const glitchPass = new BloomPass();
+	// this.composer.addPass( glitchPass );
 }
 
 SceneBack.prototype.updateRaycaster = function () {
@@ -54,6 +68,8 @@ SceneBack.prototype.updateRaycaster = function () {
 SceneBack.prototype.update = function () {
   this.renderer.render(this.scene, this.camera);
   this.renderer.autoClear = false;
+
+	this.composer.render()
 
   if (globalstateobj.raycasting) this.updateRaycaster();
   globalstateobj.raycasting = false;
