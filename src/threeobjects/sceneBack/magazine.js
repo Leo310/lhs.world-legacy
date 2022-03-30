@@ -4,10 +4,11 @@ import globalstateobj from "../../globalstate";
 import Skills from "./skills";
 import Audio from "./audio";
 import MyRoom from "./myroom";
+import MyWorld from "./myworld";
 
 export default function Magazine() {
   this.magazine = [
-    new Skills(),
+    new MyWorld(),
     new Skills(),
     new Skills(),
     new MyRoom(),
@@ -23,7 +24,7 @@ export default function Magazine() {
     this.group.add(bullet.group);
   });
 
-  this.currentAngle = 0;
+  this.currentAngle = 0.0;
 
   this.lastTime = 0;
 
@@ -47,12 +48,7 @@ Magazine.prototype.update = function () {
     this.magazine.forEach((bullet) => {
       bullet.update();
     });
-
-    this.currentAngle +=
-      (this.lastScrollPosition - globalstateobj.scrollPositionLoop) /
-      this.updatesPerSecond /
-      10; // needs some experimenting
-
+    this.currentAngle = ((-globalstateobj.scrollPositionLoop / 10.0)/180)*Math.PI; // needs some experimenting
     this.lastScrollPosition = globalstateobj.scrollPositionLoop;
     this.lastTime = window.performance.now();
   }

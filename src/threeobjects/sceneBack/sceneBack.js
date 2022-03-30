@@ -1,6 +1,7 @@
 import * as THREE from "three";
 
 import Magazine from "./magazine";
+import Lines from "./lines"
 import globalstateobj from "../../globalstate";
 
 import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer";
@@ -8,7 +9,8 @@ import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer
 // import { BloomPass } from "three/examples/jsm/postprocessing/BloomPass";
 
 export default function SceneBack(threecontainer) {
-  this.threeobjects = [new Magazine()];
+  this.threeobjects = [new Magazine(), new Lines()];
+  // this.threeobjects = [new Magazine()];
 
   //renderer
   this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });

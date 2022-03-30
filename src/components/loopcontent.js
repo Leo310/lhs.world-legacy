@@ -1,5 +1,4 @@
 import React from "react";
-import Name from "./name";
 
 import globalstateobj from "../globalstate";
 
@@ -19,17 +18,18 @@ class Loopcontent extends React.Component {
     this.loop.addEventListener("scroll", () => this.scrollCheck(), true);
     this.loop.addEventListener("wheel", (e) => e.stopPropagation(), true);
     this.loop.scrollTop = 1; // to allow upwards scrolling
-    this.scrollHeight = this.loop.scrollHeight - 19;
+    this.scrollHeight = this.loop.scrollHeight;
+    console.log(this.scrollHeight)
     this.disableScrollCheck = false;
   }
   scrollCheck() {
-    console.log(
-      this.loop.scrollTop,
-      "  , ",
-      this.clonesHeight,
-      ",  ",
-      this.scrollHeight
-    );
+    // console.log(
+    //   this.loop.scrollTop,
+    //   "  , ",
+    //   this.clonesHeight,
+    //   ",  ",
+    //   this.scrollHeight
+    // );
     // this.disableScrollCheck = true;
     // this.loop.scrollTop = 3600 - 3000;
     if (!this.disableScrollCheck) {
@@ -65,112 +65,43 @@ class Loopcontent extends React.Component {
         <div id="loopcover"></div>
         <div id="loopcontent">
           <div style={{ height: "3600px" }}>
-            <div style={{ paddingTop: "60px", height: "110px" }}>
+            <div style={{height: "720px" }}>
+              <h1>Welcome to my</h1>
+              <h1>World!</h1>
+              <p>
+                This page is full of hidden features. Find them...
+              </p>
+            </div>
+            <div style={{height: "720px" }}>
+              <h1>Sick Mukke</h1>
+              <p>
+                To enjoy the ride on my site you can listen to some sick mukke.
+                Feel free to press play :)
+              </p>
+            </div>
+            <div style={{height: "720px" }}>
+              <br/>
+              <br/>
+              <h1>My Workspace</h1>
+            </div>
+            <div style={{height: "720px" }}>
+              <br/>
+              <br/>
               <h1>My Skills</h1>
             </div>
-            <div style={{ height: "320px" }}>
-              <p
-                style={{
-                  textAlign: "center",
-                  color: "#8be9fd",
-                  fontSize: "1.3vw",
-                }}
-              >
-                GANZ OBEN Lorem ipsum dolor sit amet, consetetur sadipscing
-                elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-                dolore magna aliquyam erat, sed diam voluptua. At vero eos et
-                accusam et justo duo dolores et ea rebum. Stet clita kasd
-                gubergren, no sea takimata sanctus est Lorem ipsum dolor sit
-                amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-                sed diam nonumy eirmod tempor invidunt ut labore et dolore magna
-                aliquyam erat, sed diam
+            <div style={{height: "720px" }}>
+              <br/>
+              <br/>
+              <h1>My Skills</h1>
+            </div>
+          </div>
+          <div className="isclone" style={{ height: "720px" }}>
+              <h1>Welcome to my</h1>
+              <h1>World!</h1>
+              <p>
+                This page is full of hidden features. Find them...
               </p>
             </div>
-            <div>
-              <p
-                style={{
-                  textAlign: "center",
-                  color: "#8be9fd",
-                  fontSize: "1.3vw",
-                }}
-              >
-                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                diam nonumy eirmod tempor invidunt ut labore et dolore magna
-                aliquyam erat, sed diam voluptua. At vero eos et accusam et
-                justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-                takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum
-                dolor sit
-              </p>
-            </div>
-            <br />
-            <br />
-            <h1>Sick Mukke</h1>
-            <br />
-            <br />
-            <div style={{ display: "block" }}>
-              <p
-                style={{
-                  textAlign: "center",
-                  color: "#8be9fd",
-                  fontSize: "1.3vw",
-                }}
-              >
-                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                diam nonumy eirmod tempor invidunt ut labore et dolore magna
-                aliquyam erat, sed diam voluptua. At vero eos et accusam et
-                justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-                takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum
-                dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
-                eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-                sed diam voluptua. At vero eos et accusam et justo duo dolores
-                et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus
-                est Lorem ipsum dolor sit amet.
-              </p>
-            </div>
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <h1>My Workspace</h1>
-          </div>
-          <div
-            className="isclone"
-            style={{ paddingTop: "60px", height: "110px" }}
-          >
-            <h1>My Skills</h1>
-          </div>
-          <div className="isclone" style={{ height: "320px" }}>
-            <p
-              style={{
-                textAlign: "center",
-                color: "#8be9fd",
-                fontSize: "1.3vw",
-              }}
-            >
-              GANZ OBEN Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-              sed diam nonumy eirmod tempor invidunt ut labore et dolore magna
-              aliquyam erat, sed diam voluptua. At vero eos et accusam et justo
-              duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-              takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor
-              sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-              tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
-              voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
-              Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum
-              dolor sit amet.
-            </p>
-          </div>
         </div>
       </>
     );

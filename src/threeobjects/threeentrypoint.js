@@ -7,7 +7,8 @@ export default function ThreeEntryPoint(threecontainer) {
 
   function render() {
     requestAnimationFrame(render);
-    sceneCursor.update();
+    if(window.innerWidth > 768)
+      sceneCursor.update();
     sceneBack.update();
   }
   render();

@@ -1,6 +1,7 @@
 import * as THREE from "three";
 
 import Icon from "./icon";
+import globalstateobj from "../../globalstate";
 
 export default function Skills() {
   this.updatesPerSecond = 60;
@@ -66,25 +67,50 @@ export default function Skills() {
   this.currentAngle = 0;
 
   this.lastTime = 0;
+
+  this.clicked = false;
+  this.lastMouseXPos = 0;
 }
 
+Skills.prototype.rotateIcons = function (angle) {
+      let offset = 0;
+      this.icongroup.children.forEach((icon) => {
+        icon.position.x = Math.cos(angle - offset) * this.radius;
+        icon.position.z = Math.sin(angle - offset) * this.radius;
+        offset += (360 / this.icons.length / 180) * Math.PI;
+      });
+}
 Skills.prototype.update = function () {
   let frametime = (window.performance.now() - this.lastTime) / 1000;
 
   if (frametime >= 1 / this.updatesPerSecond) {
-    let offset = 0;
-    this.icongroup.children.forEach((icon) => {
-      icon.position.x = Math.cos(this.currentAngle - offset) * this.radius;
-      icon.position.z = Math.sin(this.currentAngle - offset) * this.radius;
-      offset += (360 / this.icons.length / 180) * Math.PI;
+    // check if skills is clicked
+    this.group.traverse((child) => {
+      if (child.isMesh && globalstateobj.clickedUuid === child.uuid) {
+        globalstateobj.clickedUuid = "";
+        this.clicked = true;
+      }
     });
 
-    this.currentAngle +=
-      (this.anglePerSecond / this.updatesPerSecond / 180) * Math.PI;
+    if(this.clicked && globalstateobj.mouseDown) {
+      this.rotateIcons(this.currentAngle)
+      const mouseXDiff= (globalstateobj.mouseX - this.lastMouseXPos)*2;
+      this.currentAngle +=mouseXDiff;
 
-    this.cube.rotateY(0.002);
-    this.wireframe.rotateY(0.002);
+      this.cube.rotateY(mouseXDiff);
+      this.wireframe.rotateY(mouseXDiff);
+    } else {
+      this.rotateIcons(this.currentAngle)
+      this.currentAngle +=
+        (this.anglePerSecond / this.updatesPerSecond / 180) * Math.PI;
+
+      this.cube.rotateY(0.002);
+      this.wireframe.rotateY(0.002);
+      this.clicked = false;
+    }
 
     this.lastTime = window.performance.now();
-  }
+    this.lastMouseXPos = globalstateobj.mouseX;
+    }
+
 };

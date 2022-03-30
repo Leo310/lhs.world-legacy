@@ -41,29 +41,31 @@ body {
 }
 
 #loopcover {
+	border-radius: 25px;
+	border: 3px solid #50fa7b;
   pointer-events: none;
-  left: 5%;
-  width: 60%;
+  left: 8%;
+  width: 48%;
   top: 60%;
   height: 40%;
   position: fixed;
   z-index: 2;
-  background: linear-gradient(
-    to bottom,
-    #21222cfa 5%,
-    #21222cf0 10%,
-    /* #21222ca0 80%, */ #21222c00 30%,
-    /* #21222ca0 80%, */ #21222c00 70%,
-    #21222cf0 90%,
-    #21222cfa 95%
-  );
+  /* background: linear-gradient( */
+  /*   to bottom, */
+  /*   #21222cfa 5%, */
+  /*   #21222cf0 10%, */
+  /*   /1* #21222ca0 80%, *1/ #21222c00 30%, */
+  /*   /1* #21222ca0 80%, *1/ #21222c00 70%, */
+  /*   #21222cf0 90%, */
+  /*   #21222cfa 95% */
+  /* ); */
 }
 #loopcontent {
   z-index: 1;
   top: 60%;
   left: 10%;
   height: 40%;
-  width: 50%;
+  width: 44%;
   position: absolute;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
@@ -88,13 +90,27 @@ h1 {
   top: 0;
   left: 0;
 }
+
+p {
+	text-align: center;
+	color: #8be9fd;
+	font-size: 1.3vw;
+}
+
+
 .name {
+	border-radius: 25px;
+	border-bottom: 3px solid #50fa7b;
+	border-right: 3px solid #50fa7b;
   text-align: left;
-  padding-left: 1%;
   padding-top: 1%;
   -webkit-text-stroke-width: 0.06vw;
   -webkit-text-stroke-color: #8be9fd;
+	white-space: pre;
+	position:absolute;
 }
+
+
 .clock {
   z-index: 1;
   color: #21222c;
@@ -104,4 +120,42 @@ h1 {
   top: 100%;
   transform: translate(-1%, -100%);
   text-align: right;
+  /* -webkit-text-stroke-width: 0.06vw; */
+  /* -webkit-text-stroke-color: #8be9fd; */
 }
+
+@media only screen and (max-width: 768px) {
+  .name {
+  	text-align: center;
+		border: 3px solid #50fa7b;
+		right: 0;
+		top: 46%;
+  	-webkit-text-stroke-color: #bd93f9;
+  	-webkit-text-stroke-width: 0.3vw;
+  }
+	h1 {
+		font-size: 8vw;
+	}
+	p {
+		font-size: 5vw;
+	}
+	#loopcover {
+		width: 100%;
+		left: 0;
+		border-top: 3px solid #50fa7b;
+		border-left: none;
+		border-right: none;
+	}
+	#loopcontent {
+		width: 100%;
+		left: 0;
+	}
+	.clock {
+		top: 1%;
+		width: 97%;
+  	transform: translate(0%, 0%);
+		font-size: 3vh;
+	}
+}
+
+

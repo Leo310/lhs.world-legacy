@@ -7,8 +7,14 @@ import Name from "./components/name";
 function App() {
   return (
     <>
-      <audio id="audio">
-        <source src={require("./resources/music.wav")} />
+      <audio id="audio0">
+        <source src={require("./resources/music2.mp3")} />
+      </audio>
+      <audio id="audio1">
+        <source src={require("./resources/music1.mp3")} />
+      </audio>
+      <audio id="audio2">
+        <source src={require("./resources/music0.wav")} />
       </audio>
       <Name />
       <Clock />

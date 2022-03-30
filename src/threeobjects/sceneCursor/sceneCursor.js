@@ -4,7 +4,8 @@ import Cursor from "./cursor";
 import Lines from "./lines";
 
 export default function SceneCursor(threecontainer) {
-  this.threeobjects = [new Cursor(), new Lines()];
+  // this.threeobjects = [new Cursor(), new Lines()];
+  this.threeobjects = [new Cursor()];
   this.scene = new THREE.Scene();
 
   this.threeobjects.forEach((element) => {

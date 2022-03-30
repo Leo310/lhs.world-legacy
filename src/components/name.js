@@ -1,5 +1,7 @@
 import React from "react";
 
+import globalstateobj from "../globalstate";
+
 class Name extends React.Component {
   constructor(props) {
     super(props);
@@ -83,14 +85,14 @@ class Name extends React.Component {
     this.setState({ name: randomFirstName });
     if (this.time >= this.animationTime) {
       clearInterval(this.timerId);
-      this.setState({ name: this.myFirstName + this.mySecondName });
+      this.setState({ name: " " + this.myFirstName + this.mySecondName + " "});
       this.clicked = false;
     }
   }
 
   render() {
     return (
-      <h1 onClick={this.randomizeName} className="name">
+      <h1 onClick={this.randomizeName} onMouseLeave={() => globalstateobj.mouseOver = false } onMouseOver={() => globalstateobj.mouseOver = true } className="name">
         {this.state.name}
       </h1>
     );
