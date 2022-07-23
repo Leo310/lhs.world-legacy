@@ -6,6 +6,7 @@ export default function Icon(size, image, position = 0) {
     new THREE.MeshBasicMaterial({
       map: new THREE.TextureLoader().load(image),
       transparent: true,
+      alphaTest: 0.5,
     })
   );
   if (position) this.mesh.position.set(position.x, position.y, position.z);

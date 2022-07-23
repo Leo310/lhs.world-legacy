@@ -3,9 +3,9 @@ import * as THREE from "three";
 export default function Lines() {
   this.group = new THREE.Group()
   const points = [];
-  points.push(new THREE.Vector3(500, -190, -20));
-  points.push(new THREE.Vector3(-50, 13, -20));
-  points.push(new THREE.Vector3(-500, -190, -20));
+  points.push(new THREE.Vector3(500, -175, 0));
+  points.push(new THREE.Vector3(-45, 13, 0));
+  points.push(new THREE.Vector3(-500, -175, 0));
 
   for(let i = 0; i<60; i++) {
     this.group.add(
@@ -16,11 +16,11 @@ export default function Lines() {
     );
   }
   const points2 = [];
-  points2.push(new THREE.Vector3(-500, 190, -20));
-  points2.push(new THREE.Vector3(50, -13, -20));
-  points2.push(new THREE.Vector3(500, 190, -20));
+  points2.push(new THREE.Vector3(-500, 175, 0));
+  points2.push(new THREE.Vector3(45, -13, 0));
+  points2.push(new THREE.Vector3(500, 175, 0));
 
-  for(let i = 0; i<60; i++) {
+  for(let i = 0; i<30; i++) {
     this.group.add(
       new THREE.Line(
         new THREE.BufferGeometry().setFromPoints(points2),

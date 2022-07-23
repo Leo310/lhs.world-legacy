@@ -6,7 +6,7 @@ export default function MyRoom() {
   this.group = new THREE.Group();
 
   this.cursorMesh = new THREE.Mesh(
-    new THREE.SphereBufferGeometry(8, 15, 15),
+    new THREE.SphereBufferGeometry(10, 15, 15),
     new THREE.MeshBasicMaterial({
       wireframeLinewidth: 2,
       color: 0x8be9fd,

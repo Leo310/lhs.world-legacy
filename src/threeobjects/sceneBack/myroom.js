@@ -14,17 +14,8 @@ export default function MyRoom() {
   this.helper = new THREE.DirectionalLightHelper(this.dirLight)
   this.dirLight.position.set(0,0,0)
 
-  this.cursorMesh = new THREE.Mesh(
-    new THREE.OctahedronGeometry(4),
-    new THREE.MeshBasicMaterial({
-      wireframeLinewidth: 2,
-      color: 0x50fa7b,
-      wireframe: true,
-    })
-  );
-
   this.myroomgroup = new THREE.Group();
-	loader.load( require('../../resources/myroom.glb'), function ( gltf ) {
+	loader.load( require('../../resources/myroom.glb'), ( gltf ) => {
 		// gltf.scene.position.set(0,0,0)
 		this.myroomgroup.add( gltf.scene );
     const neonPosition = this.myroomgroup.children[0].children.find(child => child.name === "Neon").position;
@@ -32,7 +23,7 @@ export default function MyRoom() {
     // const pos = this.myroomgroup.position;
     // this.dirLight.position.set(pos.x,pos.y,pos.z);
     // console.log(this.dirLight.position)
-	}.bind(this), undefined, function ( error ) {
+	}, undefined, function ( error ) {
 		console.error( error );
 	});
   this.group.rotateX(20/180*Math.PI)

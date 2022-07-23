@@ -3,11 +3,14 @@ import React from "react";
 import globalstateobj from "../globalstate";
 
 class Name extends React.Component {
+  state = {
+    active: ""
+  }
   constructor(props) {
     super(props);
     this.randomstring = "  ¿⁋adeghilnor$ΛΔ.Ω%#?";
     // this.randomstring = "  ⁋efhijlmnorstuvw$%#?";
-    this.state = { name: "" };
+    this.state = {name : ""};
     this.clicked = false;
     this.animationTime = 1500;
     this.refreshRate = 80;
@@ -16,10 +19,14 @@ class Name extends React.Component {
     this.mySecondName = "Heininger";
     this.myreversename = this.mySecondName.split("").reverse().join("");
     this.switch = true;
+  }
+  
+  componentDidMount() {
     this.randomizeName();
   }
 
   randomizeName() {
+    this.setState({ active: "on" });
     this.time = 0;
     if (this.switch) {
       this.myFirstName = "Renaldo ";
@@ -42,18 +49,13 @@ class Name extends React.Component {
   tick() {
     this.time += this.refreshRate;
     let randomFirstName = "<";
-    for (
-      let i = 0;
-      i < (this.time / this.animationTime) * this.myFirstName.length;
-      i++
-    ) {
+    for (let i = 0;
+         i < (this.time / this.animationTime) * this.myFirstName.length; i++) {
       if (this.alreadyUsedCharSurName.get(i)) {
         randomFirstName += this.alreadyUsedCharSurName.get(i);
       } else {
-        let char =
-          this.randomstring[
-            Math.round(Math.random() * (this.randomstring.length - 1))
-          ];
+        let char = this.randomstring[Math.round(
+            Math.random() * (this.randomstring.length - 1))];
         randomFirstName += char;
         if (this.myFirstName.includes(char)) {
           this.alreadyUsedCharSurName.set(this.myFirstName.indexOf(char), char);
@@ -61,18 +63,13 @@ class Name extends React.Component {
       }
     }
     let randomSecondName = "";
-    for (
-      let i = 0;
-      i < (this.time / this.animationTime) * this.mySecondName.length;
-      i++
-    ) {
+    for (let i = 0;
+         i < (this.time / this.animationTime) * this.mySecondName.length; i++) {
       if (this.alreadyUsedCharName.get(i)) {
         randomSecondName += this.alreadyUsedCharName.get(i);
       } else {
-        let char =
-          this.randomstring[
-            Math.round(Math.random() * (this.randomstring.length - 1))
-          ];
+        let char = this.randomstring[Math.round(
+            Math.random() * (this.randomstring.length - 1))];
         randomSecondName += char;
         if (this.myreversename.includes(char)) {
           this.alreadyUsedCharName.set(this.myreversename.indexOf(char), char);
@@ -82,20 +79,23 @@ class Name extends React.Component {
     randomSecondName = randomSecondName.split("").reverse().join("");
     randomFirstName += randomSecondName + ">";
 
-    this.setState({ name: randomFirstName });
+    this.setState({name : randomFirstName});
     if (this.time >= this.animationTime) {
       clearInterval(this.timerId);
-      this.setState({ name: " " + this.myFirstName + this.mySecondName + " "});
+      this.setState({ active: "off", name : " " + this.myFirstName + this.mySecondName + " "});
       this.clicked = false;
     }
   }
 
   render() {
     return (
-      <h1 onClick={this.randomizeName} onMouseLeave={() => globalstateobj.mouseOver = false } onMouseOver={() => globalstateobj.mouseOver = true } className="name">
-        {this.state.name}
-      </h1>
-    );
+        <div id = "nameWrapper" className={`${this.state.active === "on" ? "animate-on" : "animate-off"}`}>
+          <h1 onClick = {this.randomizeName} onMouseLeave =
+             {() => globalstateobj.mouseOver = false} onMouseOver =
+                 {() => globalstateobj.mouseOver = true} className = "name">{
+            this.state.name}
+          </h1>
+        </div>);
   }
 }
 export default Name;
