@@ -109,7 +109,7 @@ class Loopcontent extends React.Component {
            <h1>My Workspace</h1>
             </div>
            <div style = {{
-      height: "590px" }}><br /><br />
+      height: "580px" }}><br /><br />
            <h1>Things I find</h1>
               <h1>interesting</h1>
            </div>
