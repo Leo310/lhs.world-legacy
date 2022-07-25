@@ -52,15 +52,6 @@ class Loopcontent extends React.Component {
     this.disableScrollCheck = false;
   }
   scrollCheck() {
-    // console.log(
-    //   this.loop.scrollTop,
-    //   "  , ",
-    //   this.clonesHeight,
-    //   ",  ",
-    //   this.scrollHeight
-    // );
-    // this.disableScrollCheck = true;
-    // this.loop.scrollTop = 3600 - 3000;
     if (!this.disableScrollCheck) {
       let scrollTop = this.loop.scrollTop;
       globalstateobj.scrollPositionLoop += scrollTop - this.lastScroll;
@@ -80,12 +71,6 @@ class Loopcontent extends React.Component {
         this.disableScrollCheck = true;
       }
     }
-    // not really needed somehow, but ill keep it in because its not affecting
-    // anything and could prevent bugs
-    if (this.disableScrollCheck) {
-      // disable scroll jumping for a short time to avoid flickering
-      window.setTimeout(() => { this.disableScrollCheck = false; }, 0);
-    }
   }
 
   scrollToNextDiv(id){
@@ -97,61 +82,58 @@ class Loopcontent extends React.Component {
     // window.setInterval(function() {
     //   this.loop.scrollTop += 3;
     // }.bind(this), 12);
-    return (<>
-        <div id="loopcontent" onMouseLeave =
-             {() => globalstateobj.mouseOver = false} onMouseOver =
-                 {() => globalstateobj.mouseOver = true} className={`${this.state.active === "on" ? "animate-on" : "animate-off"}`}>
-          <div style={{
-      height: "3600px" }}>
-            <div style={{
-      height: "620px" }}>
-              <br />
-              <br />
-              <h1>Welcome to my</h1>
+    return (
+      <>
+      <div id="loopcontent" onMouseLeave={() => (globalstateobj.mouseOver = false)} onMouseOver={() => (globalstateobj.mouseOver = true)} className={`${this.state.active === "on" ? "animate-on" : "animate-off"}`}>
+        <div style={{ height: "3600px" }}>
+          <div style={{ height: "720px" }}>
+            <br />
+            <br />
+            <h1>Welcome to my</h1>
             <h1>World</h1>
-            <img onClick={() => this.scrollToNextDiv("cont2")} src={require("../resources/downarrow.png")} className="downarrow" alt="Down"/>
-            </div>
-            <div style={{height: "820px" }} id="cont2">
-              <br />
-              <br />
-              <h1>Some Music</h1>
-            <p>To enjoy the ride on my site you can listen to chill spacey
-                music. Feel free to press play:)</p>
-            <img onClick={() => this.scrollToNextDiv("cont3")} src={require("../resources/downarrow.png")} className="downarrow" alt="Down"/>
-            </div>
-           <div style = {{
-      height: "720px" }} id="cont3"><br /><br />
-           <h1>My Workspace</h1>
-            <p>If you don't have great sound, nice lights and a powerfull PC, get it now!</p>
-            <img onClick={() => this.scrollToNextDiv("cont4")} src={require("../resources/downarrow.png")} className="downarrow" alt="Down"/>
-            </div>
-           <div style = {{
-      height: "640px" }} id="cont4"><br /><br />
-           <h1>Things I find</h1>
-              <h1>interesting</h1>
-            <img onClick={() => this.scrollToNextDiv("cont5")} src={require("../resources/downarrow.png")} className="downarrow" alt="Down"/>
-           </div>
-            <div style={{height: "800px" }} id="cont5">
-           <h1>Ty &lt;3</h1>
-              <ImmortalizerForm />
-              <br />
-              <br />
-              <br />
-              <br />
-            <p>Back to the beginning</p>
-            <img onClick={() => this.scrollToNextDiv("cont1")} src={require("../resources/downarrow.png")} className="downarrow" alt="Down"/>
-            </div>
+            <img onClick={() => this.scrollToNextDiv("cont2")} src={require("../resources/downarrow.png")} className="downarrow" alt="Down" />
           </div>
-          <div className="isclone" id="cont1" style={{
-      height: "720px" }}>
-              <br />
-              <br />
-              <h1>Welcome to my</h1>
-              <h1>World</h1>
-              <img onClick={() => this.scrollToNextDiv("cont2")} src={require("../resources/downarrow.png")} className="downarrow" alt="Down"/>
-            </div>
+          <div style={{ height: "720px" }} id="cont2">
+            <br />
+            <br />
+            <h1>Some Music</h1>
+            <p>To enjoy the ride on my site you can listen to chill spacey music. Feel free to press play:)</p>
+            <img onClick={() => this.scrollToNextDiv("cont3")} src={require("../resources/downarrow.png")} className="downarrow" alt="Down" />
+          </div>
+          <div style={{ height: "720px" }} id="cont3">
+            <br />
+            <br />
+            <h1>My Workspace</h1>
+            <p>If you don't have great sound, nice lights and a powerfull PC, get it now!</p>
+            <img onClick={() => this.scrollToNextDiv("cont4")} src={require("../resources/downarrow.png")} className="downarrow" alt="Down" />
+          </div>
+          <div style={{ height: "640px" }} id="cont4">
+            <br />
+            <br />
+            <h1>Things I find</h1>
+            <h1>interesting</h1>
+            <img onClick={() => this.scrollToNextDiv("cont5")} src={require("../resources/downarrow.png")} className="downarrow" alt="Down" />
+          </div>
+          <div style={{ height: "800px" }} id="cont5">
+            <h1>Ty &lt;3</h1>
+            <ImmortalizerForm />
+            <br />
+            <br />
+            <br />
+            <br />
+            <p>Back to the World</p>
+            <img onClick={() => this.scrollToNextDiv("cont1")} src={require("../resources/downarrow.png")} className="downarrow" alt="Down" />
+          </div>
         </div>
-      </>
+        <div className="isclone" id="cont1" style={{ height: "720px" }}>
+          <br />
+          <br />
+          <h1>Welcome to my</h1>
+          <h1>World</h1>
+          <img onClick={() => this.scrollToNextDiv("cont2")} src={require("../resources/downarrow.png")} className="downarrow" alt="Down" />
+        </div>
+      </div>
+    </>
     );
   }
 }
