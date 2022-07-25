@@ -52,24 +52,22 @@ class Loopcontent extends React.Component {
     this.disableScrollCheck = false;
   }
   scrollCheck() {
-    if (!this.disableScrollCheck) {
-      let scrollTop = this.loop.scrollTop;
-      globalstateobj.scrollPositionLoop += scrollTop - this.lastScroll;
+    let scrollTop = this.loop.scrollTop;
+    globalstateobj.scrollPositionLoop += scrollTop - this.lastScroll;
 
-      this.lastScroll = scrollTop;
+    this.lastScroll = scrollTop;
 
-      if (scrollTop + this.clonesHeight >= this.scrollHeight) {
-        // scroll to top and set to 1 to avoid looping. * set to 15, idk why but
-        // works better
-        this.loop.scrollTop = 1;
-        this.lastScroll = 0;
-        this.disableScrollCheck = true;
-      } else if (scrollTop <= 0) {
-        // scroll to bottom
-        this.loop.scrollTop = this.scrollHeight - this.clonesHeight - 1;
-        this.lastScroll = this.scrollHeight - this.clonesHeight;
-        this.disableScrollCheck = true;
-      }
+    if (scrollTop + this.clonesHeight >= this.scrollHeight) {
+      // scroll to top and set to 1 to avoid looping. * set to 15, idk why but
+      // works better
+      this.loop.scrollTop = 1;
+      this.lastScroll = 0;
+      this.disableScrollCheck = true;
+    } else if (scrollTop <= 0) {
+      // scroll to bottom
+      this.loop.scrollTop = this.scrollHeight - this.clonesHeight - 1;
+      this.lastScroll = this.scrollHeight - this.clonesHeight;
+      this.disableScrollCheck = true;
     }
   }
 
