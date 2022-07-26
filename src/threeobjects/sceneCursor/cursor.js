@@ -36,7 +36,7 @@ Cursor.prototype.update = function () {
     mesh.rotation.y += 0.01;
   })
 
-  if(globalstateobj.mouseOver) {
+  if(globalstateobj.mouseToRed) {
   this.meshes.forEach(mesh => {
     mesh.material.color = new THREE.Color(0xff5555);
     if( this.cursorScale <= 1.5) {

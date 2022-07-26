@@ -91,8 +91,8 @@ class Name extends React.Component {
     return (
         <div id = "nameWrapper" className={`${this.state.active === "on" ? "animate-on" : "animate-off"}`}>
           <h1 onClick = {this.randomizeName} onMouseLeave =
-             {() => globalstateobj.mouseOver = false} onMouseOver =
-                 {() => globalstateobj.mouseOver = true} className = "name">{
+             {() => globalstateobj.mouseToRed = false} onMouseOver =
+                 {() => globalstateobj.mouseToRed = true} className = "name">{
             this.state.name}
           </h1>
         </div>);

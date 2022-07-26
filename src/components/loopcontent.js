@@ -5,7 +5,7 @@ import globalstateobj from "../globalstate";
 import ImmortalizerForm from "./immortalizerform"
 
 class Loopcontent extends React.Component {
-  state = {active : ""};
+  state = {borderAnimation : "", scrollAnimation: false};
   constructor(props) {
     super(props);
     this.lastScroll = 0;
@@ -22,17 +22,19 @@ class Loopcontent extends React.Component {
 
     this.loop = document.getElementById("loopcontent");
     // if scrolled in loopcontent, dont want to trigger wheel event in body.
-    // thats why second listener on wheel which stops propagation and set to
-    // true
-    this.loop.addEventListener("scroll", () => {
+    // thats why second listener on wheel which stops propagation and set to true
+    this.loop.addEventListener("scroll", () => this.onScroll(), true);
+    this.loop.addEventListener("wheel", (e) => e.stopPropagation(), true);
+    this.loop.scrollTop = 1; // to allow upwards scrolling
+    this.scrollHeight = this.loop.scrollHeight;
+    console.log(this.scrollHeight);
+    this.disableScrollCheck = false;
+  }
+  onScroll() {
       this.scrollCheck();
       // scroll gets executed on page load somewhy
       if (this.onscroll && this.notfirstreloadscroll) {
-        this.setState({"active" : "on"});
-        // if(this.onfirstscroll) {
-        //   document.getElementById("downarrow").hidden = true;
-        //   this.onfirstscroll = false;
-        // }
+        this.setState({borderAnimation: "on"});
         this.onscroll = false;
       }
 
@@ -41,16 +43,11 @@ class Loopcontent extends React.Component {
       }
       this.timer = setTimeout(() => {
         this.onscroll = true;
-        this.setState({"active" : "off"});
-      }, 150);
+        this.setState({ borderAnimation: "off"});
+      }, 100);
       this.notfirstreloadscroll = true;
-    }, true);
-    this.loop.addEventListener("wheel", (e) => e.stopPropagation(), true);
-    this.loop.scrollTop = 1; // to allow upwards scrolling
-    this.scrollHeight = this.loop.scrollHeight;
-    console.log(this.scrollHeight);
-    this.disableScrollCheck = false;
   }
+
   scrollCheck() {
     let scrollTop = this.loop.scrollTop;
     globalstateobj.scrollPositionLoop += scrollTop - this.lastScroll;
@@ -70,6 +67,9 @@ class Loopcontent extends React.Component {
       this.disableScrollCheck = true;
     }
   }
+  setScrollAnimation(on) {
+    this.setState({scrollAnimation: on})
+  }
 
   scrollToNextDiv(id){
     let nextdiv = document.getElementById(id);
@@ -82,45 +82,40 @@ class Loopcontent extends React.Component {
     // }.bind(this), 12);
     return (
       <>
-      <div id="loopcontent" onMouseLeave={() => (globalstateobj.mouseOver = false)} onMouseOver={() => (globalstateobj.mouseOver = true)} className={`${this.state.active === "on" ? "animate-on" : "animate-off"}`}>
+      <div id="loopcontent" onMouseLeave={() => (globalstateobj.mouseToRed = false)} onMouseOver={() => (globalstateobj.mouseToRed = true)} className={`${this.state.borderAnimation === "on" ? "animate-on" : "animate-off"}`}>
         <div style={{ height: "3600px" }}>
           <div style={{ height: "720px" }}>
             <br />
             <br />
             <h1>Welcome to my</h1>
             <h1>World</h1>
-            <img onClick={() => this.scrollToNextDiv("cont2")} src={require("../resources/downarrow.png")} className="downarrow" alt="Down" />
+            <img onClick={() => this.scrollToNextDiv("cont2")} src={require("../resources/downarrow.png")} onMouseOver={() => this.setScrollAnimation(true)} onMouseLeave={() => this.setScrollAnimation(false)} className={`downarrow ${this.state.scrollAnimation ? "bounce" : ""}`} alt="Down" />
           </div>
           <div style={{ height: "720px" }} id="cont2">
             <br />
             <br />
             <h1>Some Music</h1>
             <p>To enjoy the ride on my site you can listen to chill spacey music. Feel free to press play:)</p>
-            <img onClick={() => this.scrollToNextDiv("cont3")} src={require("../resources/downarrow.png")} className="downarrow" alt="Down" />
+            <img onClick={() => this.scrollToNextDiv("cont3")} src={require("../resources/downarrow.png")} onMouseOver={() => this.setScrollAnimation(true)} onMouseLeave={() => this.setScrollAnimation(false)} className={`downarrow ${this.state.scrollAnimation ? "bounce" : ""}`} alt="Down" />
           </div>
           <div style={{ height: "720px" }} id="cont3">
             <br />
             <br />
             <h1>My Workspace</h1>
-            <p>If you don't have great sound, nice lights and a powerfull PC, get it now!</p>
-            <img onClick={() => this.scrollToNextDiv("cont4")} src={require("../resources/downarrow.png")} className="downarrow" alt="Down" />
+            <p>If you don't have great sound, nice lights and a powerfull PC, get it NOW!</p>
+            <img onClick={() => this.scrollToNextDiv("cont4")} src={require("../resources/downarrow.png")} onMouseOver={() => this.setScrollAnimation(true)} onMouseLeave={() => this.setScrollAnimation(false)} className={`downarrow ${this.state.scrollAnimation ? "bounce" : ""}`} alt="Down" />
           </div>
-          <div style={{ height: "640px" }} id="cont4">
+          <div style={{ height: "720px" }} id="cont4">
             <br />
             <br />
             <h1>Things I find</h1>
             <h1>interesting</h1>
-            <img onClick={() => this.scrollToNextDiv("cont5")} src={require("../resources/downarrow.png")} className="downarrow" alt="Down" />
+            <img onClick={() => this.scrollToNextDiv("cont5")} src={require("../resources/downarrow.png")} onMouseOver={() => this.setScrollAnimation(true)} onMouseLeave={() => this.setScrollAnimation(false)} className={`downarrow ${this.state.scrollAnimation ? "bounce" : ""}`} alt="Down" />
           </div>
-          <div style={{ height: "800px" }} id="cont5">
+          <div style={{ height: "720px" }} id="cont5">
             <h1>Ty &lt;3</h1>
             <ImmortalizerForm />
-            <br />
-            <br />
-            <br />
-            <br />
-            <p>Back to the World</p>
-            <img onClick={() => this.scrollToNextDiv("cont1")} src={require("../resources/downarrow.png")} className="downarrow" alt="Down" />
+            <img onClick={() => this.scrollToNextDiv("cont1")} src={require("../resources/downarrow.png")} onMouseOver={() => this.setScrollAnimation(true)} onMouseLeave={() => this.setScrollAnimation(false)} className={`downarrow ${this.state.scrollAnimation ? "bounce" : ""}`} alt="Down" />
           </div>
         </div>
         <div className="isclone" id="cont1" style={{ height: "720px" }}>
@@ -128,7 +123,7 @@ class Loopcontent extends React.Component {
           <br />
           <h1>Welcome to my</h1>
           <h1>World</h1>
-          <img onClick={() => this.scrollToNextDiv("cont2")} src={require("../resources/downarrow.png")} className="downarrow" alt="Down" />
+          <img onClick={() => this.scrollToNextDiv("cont2")} src={require("../resources/downarrow.png")} onMouseOver={() => this.setScrollAnimation(true)} onMouseLeave={() => this.setScrollAnimation(false)} className={`downarrow ${this.state.scrollAnimation ? "bounce" : ""}`} alt="Down" />
         </div>
       </div>
     </>

@@ -19,7 +19,7 @@ export default function Magazine() {
   this.radius = 30;
 
   if (window.innerWidth > 768)
-    this.origin = new THREE.Vector3(15, 10 + this.radius, 0);
+    this.origin = new THREE.Vector3(20, 10 + this.radius, 0);
   else
     this.origin = new THREE.Vector3(0, 15 + this.radius, 0);
   this.updatesPerSecond = 60;

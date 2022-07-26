@@ -5,7 +5,7 @@ function Globalstate() {
   this.scrollPositionBody = 0;
   this.raycasting = false; // if true executes raycasting function
   this.clickedUuid = "";
-  this.mouseOver = false;
+  this.mouseToRed = false;
   this.mouseDown = false;
   this.wordcloudchanged = false;
   this.wordcloudurl = "";
