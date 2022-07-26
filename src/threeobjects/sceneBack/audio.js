@@ -42,6 +42,10 @@ export default function Audio() {
       this.icons[0].mesh.visible = true;
       this.icons[0].mesh.position.z += 1;
       this.isPlaying = false;
+      this.audioIndex++;
+      if(this.audioIndex === this.audioElems.length)
+        this.audioIndex = 0;
+      this.playAudio()
     });
   })
 

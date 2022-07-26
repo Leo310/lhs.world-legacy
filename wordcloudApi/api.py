@@ -25,10 +25,9 @@ def immortalizer():
         # comments_maskrgb = np.stack((comments_mask * 255, ) * 3, axis=-1)
         comments_maskrgba = np.insert(
             comments_maskrgb,
-            3,  #position in the pixel value [ r, g, b, a <-index [3]  ]
+            3,  # position in the pixel value [ r, g, b, a <-index [3]  ]
             255,  # or 1 if you're going for a float data type as you want the alpha to be fully white otherwise the entire image will be transparent.
-            axis=
-            2,  #this is the depth where you are inserting this alpha channel into
+            axis=2,  # this is the depth where you are inserting this alpha channel into
         )
         colors = np.array(Image.open("colors.png"))
         image_colors = ImageColorGenerator(colors)
