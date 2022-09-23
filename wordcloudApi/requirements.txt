@@ -1,4 +1,0 @@
-wordcloud
-flask
-flask_cors
-numpy
