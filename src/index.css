@@ -72,11 +72,11 @@ body {
 	margin-top: 1vw;
 	width: auto;
 	height: 2.2em;
-	animation: bounce 2s 3;
+	/* animation: bounce 2s 3; */
 }
 
 .bounce {
-  animation: bounce 2s infinite;
+  animation: bounce 2s 2;
 }
 
 @keyframes bounce {

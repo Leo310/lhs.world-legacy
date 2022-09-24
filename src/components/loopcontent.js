@@ -13,6 +13,7 @@ class Loopcontent extends React.Component {
     this.onscroll = true;
     this.onfirstscroll = true;
     this.notfirstreloadscroll = false;
+    this.scrollanimationfinished = true;
   }
   componentDidMount() {
     this.clones = document.getElementsByClassName("isclone");
@@ -68,7 +69,29 @@ class Loopcontent extends React.Component {
     }
   }
   setScrollAnimation(on) {
-    this.setState({scrollAnimation: on})
+    // let elems = document.getElementsByClassName("downarrow");
+    // Array.prototype.forEach.call(elems, (elem) => {
+    //   elem.style.animation = 'none';
+    //   console.log(elem.offsetHeight);
+    //   elem.style.animation = '';
+    // });
+    // this.setState({scrollAnimation: on});
+    if(on && this.scrollanimationfinished) {
+      let elems = document.getElementsByClassName("downarrow");
+      Array.prototype.forEach.call(elems, (elem) => {
+        elem.style.animation = 'none';
+        console.log(elem.offsetHeight);
+        elem.style.animation = '';
+      });
+      this.setState({scrollAnimation: true});
+      this.scrollanimationfinished = false;
+    } else {
+      setTimeout(() => { 
+        console.log("heloo");
+        this.setState({scrollAnimation: false}); 
+        this.scrollanimationfinished = true;
+      }, 4000);
+    }
   }
 
   scrollToNextDiv(id){
