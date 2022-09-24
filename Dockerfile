@@ -1,11 +1,9 @@
-FROM node
-
-WORKDIR /app
-
+FROM node AS builder
+WORKDIR /app/
 COPY . .
+RUN npm ci --silent
+RUN npm run build
 
-RUN npm i
-
-EXPOSE 3000
-
-CMD ["npm", "start"]
+FROM nginx:stable-alpine
+COPY --from=builder /app/build/ /usr/share/nginx/html/
+CMD ["nginx", "-g", "daemon off;"]
