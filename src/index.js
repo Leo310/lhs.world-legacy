@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import App from "./app";
 import "./index.css";
 import globalstateobj from "./globalstate";
+import initMatomo from "./matomotracking";
 
 function updateMouse(event) {
   // normalized coordinates
@@ -30,5 +31,7 @@ document.body.addEventListener(
 document.body.addEventListener("wheel", (e) => {
   globalstateobj.scrollPositionBody += e.deltaY;
 });
+
+initMatomo();
 
 ReactDOM.render(<App />, document.getElementById("root"));
