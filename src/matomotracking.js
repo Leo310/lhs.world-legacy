@@ -5,7 +5,7 @@ export default function initMatomo() {
   _paq.push(['trackPageView']);
   _paq.push(['enableLinkTracking']);
   (function() {
-    var u = '//https://matomo.herginnies.world/';
+    var u = 'https://matomo.herginnies.world/';
     _paq.push(['setTrackerUrl', u + 'matomo.php']);
     _paq.push(['setSiteId', '1']);
     var d = document,
