@@ -14,7 +14,7 @@ class ImmortalizerForm extends React.Component {
   handleChange(event) { this.setState({value : event.target.value}); }
 
   async fetchWordcloud() {
-    let res = await fetch("http://0.0.0.0:3001", {
+    let res = await fetch("https://wordcloudapi.herginnies.world", {
       method : 'POST',
       headers :
           {'Accept' : 'application/json', 'Content-Type' : 'application/json'},

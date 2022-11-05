@@ -37,7 +37,7 @@ export default function Skills() {
 
   this.group = new THREE.Group();
   let material = new THREE.MeshBasicMaterial({
-    map: new THREE.TextureLoader().load(require("../../resources/PB.png")),
+    map: new THREE.TextureLoader().load(require("../../resources/textures/PB.png")),
     // color: 0xbd93f9,
     // transparent: true,
     // side: THREE.DoubleSide,
@@ -72,15 +72,15 @@ export default function Skills() {
   this.lastMouseXPos = 0;
 }
 
-Skills.prototype.rotateIcons = function (angle) {
-      let offset = 0;
-      this.icongroup.children.forEach((icon) => {
-        icon.position.x = Math.cos(angle - offset) * this.radius;
-        icon.position.z = Math.sin(angle - offset) * this.radius;
-        offset += (360 / this.icons.length / 180) * Math.PI;
-      });
+Skills.prototype.rotateIcons = function(angle) {
+  let offset = 0;
+  this.icongroup.children.forEach((icon) => {
+    icon.position.x = Math.cos(angle - offset) * this.radius;
+    icon.position.z = Math.sin(angle - offset) * this.radius;
+    offset += (360 / this.icons.length / 180) * Math.PI;
+  });
 }
-Skills.prototype.update = function () {
+Skills.prototype.update = function() {
   let frametime = (window.performance.now() - this.lastTime) / 1000;
 
   if (frametime >= 1 / this.updatesPerSecond) {
@@ -92,10 +92,10 @@ Skills.prototype.update = function () {
       }
     });
 
-    if(this.clicked && globalstateobj.mouseDown) {
+    if (this.clicked && globalstateobj.mouseDown) {
       this.rotateIcons(this.currentAngle)
-      const mouseXDiff= (globalstateobj.mouseX - this.lastMouseXPos)*2;
-      this.currentAngle +=mouseXDiff;
+      const mouseXDiff = (globalstateobj.mouseX - this.lastMouseXPos) * 2;
+      this.currentAngle += mouseXDiff;
 
       this.cube.rotateY(mouseXDiff);
       this.wireframe.rotateY(mouseXDiff);
@@ -111,6 +111,6 @@ Skills.prototype.update = function () {
 
     this.lastTime = window.performance.now();
     this.lastMouseXPos = globalstateobj.mouseX;
-    }
+  }
 
 };

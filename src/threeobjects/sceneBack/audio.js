@@ -4,21 +4,21 @@ import globalstateobj from "../../globalstate";
 
 export default function Audio() {
   this.icons = [
-    new Icon(8, require("../../resources/playbutton.png")),
+    new Icon(8, require("../../resources/textures/playbutton.png")),
     new Icon(
       8,
-      require("../../resources/pausebutton.png"),
+      require("../../resources/textures/pausebutton.png"),
       new THREE.Vector3(-0.5, -0.2, 0)
     ),
     // new Icon(10, require("../../resources/circle.png")),
     new Icon(
       5,
-      require("../../resources/nextbutton.png"),
+      require("../../resources/textures/nextbutton.png"),
       new THREE.Vector3(8, 0, 0)
     ),
     new Icon(
       5,
-      require("../../resources/previousbutton.png"),
+      require("../../resources/textures/previousbutton.png"),
       new THREE.Vector3(-8, 0, 0)
     ),
   ];
@@ -28,7 +28,7 @@ export default function Audio() {
   let elem = null;
   let iterator = 0;
   this.audioElems = [];
-  while((elem = document.getElementById("audio" + iterator)) !== null) {
+  while ((elem = document.getElementById("audio" + iterator)) !== null) {
     this.audioElems.push(elem)
     iterator++;
   }
@@ -43,7 +43,7 @@ export default function Audio() {
       this.icons[0].mesh.position.z += 1;
       this.isPlaying = false;
       this.audioIndex++;
-      if(this.audioIndex === this.audioElems.length)
+      if (this.audioIndex === this.audioElems.length)
         this.audioIndex = 0;
       this.playAudio()
     });
@@ -58,24 +58,24 @@ export default function Audio() {
   this.lastScrollPosition = 0;
 }
 
-Audio.prototype.playAudio = function () {
-          this.icons[0].mesh.visible = false;
-          this.icons[1].mesh.visible = true;
-          if(!this.isPlaying) 
-            this.icons[1].mesh.position.z += 2;
-          this.audioElems[this.audioIndex].play();
-          this.isPlaying = true;
+Audio.prototype.playAudio = function() {
+  this.icons[0].mesh.visible = false;
+  this.icons[1].mesh.visible = true;
+  if (!this.isPlaying)
+    this.icons[1].mesh.position.z += 2;
+  this.audioElems[this.audioIndex].play();
+  this.isPlaying = true;
 }
 
-Audio.prototype.pauseAudio = function () {
-          this.icons[1].mesh.visible = false;
-          this.icons[1].mesh.position.z -= 2;
-          this.icons[0].mesh.visible = true;
-          this.audioElems[this.audioIndex].pause();
-          this.isPlaying = false;
+Audio.prototype.pauseAudio = function() {
+  this.icons[1].mesh.visible = false;
+  this.icons[1].mesh.position.z -= 2;
+  this.icons[0].mesh.visible = true;
+  this.audioElems[this.audioIndex].pause();
+  this.isPlaying = false;
 }
 
-Audio.prototype.update = function () {
+Audio.prototype.update = function() {
   // let frametime = (window.performance.now() - this.lastTime) / 1000;
   this.icons.every((icon, index) => {
     if (icon.mesh.uuid === globalstateobj.clickedUuid) {
@@ -90,15 +90,15 @@ Audio.prototype.update = function () {
         case 2:
           this.audioElems[this.audioIndex].pause();
           this.audioIndex++;
-          if(this.audioIndex === this.audioElems.length)
+          if (this.audioIndex === this.audioElems.length)
             this.audioIndex = 0;
           this.playAudio()
           break;
         case 3:
           this.audioElems[this.audioIndex].pause();
           this.audioIndex--;
-          if(this.audioIndex < 0)
-            this.audioIndex = this.audioElems.length-1;
+          if (this.audioIndex < 0)
+            this.audioIndex = this.audioElems.length - 1;
           this.playAudio()
           break;
         default:
@@ -108,9 +108,8 @@ Audio.prototype.update = function () {
     return true;
   });
 
-  if (this.isPlaying)
-  {
-    this.volume += -(globalstateobj.scrollPositionBody-this.lastScrollPosition)/500;
+  if (this.isPlaying) {
+    this.volume += -(globalstateobj.scrollPositionBody - this.lastScrollPosition) / 500;
     this.volume = Math.min(Math.max(0, this.volume), 1);
     this.audioElems[this.audioIndex].volume = this.volume;
   }
