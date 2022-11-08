@@ -4,30 +4,29 @@ import globalstateobj from "../globalstate";
 
 import ImmortalizerForm from "./immortalizerform"
 
-class Loopcontent extends React.Component {
+class Loop extends React.Component {
   state = { borderAnimation: "", scrollAnimationUp: false, scrollAnimationDown: false };
   constructor(props) {
     super(props);
     this.lastScroll = 0;
-    this.timer = null;
+    this.scrollTimer = null;
     this.onscroll = true;
     this.onfirstscroll = true;
     this.notfirstreloadscroll = false;
     this.scrollanimationfinished = true;
 
-    // starts with 1
-    this.focusedContentIndex = 1;
-    this.lastFocusedContentIndex = 1;
+    this.loopContentIndex = 0;
+    this.lastFocusedContentIndex = 0;
     this.lastArrowPressedTime = 0;
     this.scrolling = null;
   }
   componentDidMount() {
+    this.loopcontents = document.getElementsByClassName("loopcontent");
+    this.loopcontentheight = this.loopcontents[0].clientHeight;
     this.clones = document.getElementsByClassName("isclone");
-    this.clonesHeight = 0;
-    for (let i = 0; i < this.clones.length; i++)
-      this.clonesHeight += this.clones[i].clientHeight;
+    this.clonesHeight = this.loopcontentheight * this.clones.length;
 
-    this.loop = document.getElementById("loopcontent");
+    this.loop = document.getElementById("loop");
     // if scrolled in loopcontent, dont want to trigger wheel event in body.
     // thats why second listener on wheel which stops propagation and set to true
     this.loop.addEventListener("scroll", () => this.onScroll(), true);
@@ -37,30 +36,28 @@ class Loopcontent extends React.Component {
     // console.log(this.scrollHeight);
     this.disableScrollCheck = false;
   }
+
   onScroll() {
     this.scrollCheck();
-    console.log("Scrolltop:" + this.loop.scrollTop);
-    // plus two because 1 is subtracted in jump scroll bottom (=> 3599) 
+    // console.log("Scrolltop:" + this.loop.scrollTop);
+    // plus 2, because 1 is subtracted in jump scroll bottom (=> 3599) 
     // and we want it to be bigger than 3600 so that Math.ceil spits out index 6 instead of 5
-    this.focusedContentIndex = Math.ceil((2 + this.loop.scrollTop) / 720)
-    console.log("ContIndexA: " + this.focusedContentIndex)
-    console.log("ScrollTopA: " + this.loop.scrollTop)
+    this.loopContentIndex = Math.floor((2 + this.loop.scrollTop) / this.loopcontentheight)
     // scroll gets executed on page load somewhy
     if (this.onscroll && this.notfirstreloadscroll) {
       this.setState({ borderAnimation: "on" });
       this.onscroll = false;
     }
 
-    if (this.timer !== null) {
-      clearTimeout(this.timer);
+    if (this.scrollTimer !== null) {
+      clearTimeout(this.scrollTimer);
     }
-    this.timer = setTimeout(() => {
+    this.scrollTimer = setTimeout(() => {
       this.onscroll = true;
       this.setState({ borderAnimation: "off" });
     }, 100);
     this.notfirstreloadscroll = true;
   }
-
   scrollCheck() {
     let scrollTop = this.loop.scrollTop;
     globalstateobj.scrollPositionLoop += scrollTop - this.lastScroll;
@@ -68,21 +65,20 @@ class Loopcontent extends React.Component {
     this.lastScroll = scrollTop;
 
     if (scrollTop + this.clonesHeight >= this.scrollHeight) {
-      // scroll to top and set to 1 to avoid looping. * set to 15, idk why but
-      // works better
-      console.log("Jump Scroll TOP");
+      // console.log("Jump Scroll TOP");
+      // set to 1 to avoid looping
       this.loop.scrollTop = 1;
       this.lastScroll = 0;
       this.disableScrollCheck = true;
     } else if (scrollTop <= 0) {
-      // scroll to bottom
-      console.log("Jump Scroll Bottom");
+      // console.log("Jump Scroll Bottom");
       // subtract in one here to not directly jump to the top again
       this.loop.scrollTop = this.scrollHeight - this.clonesHeight - 1;
       this.lastScroll = this.scrollHeight - this.clonesHeight;
       this.disableScrollCheck = true;
     }
   }
+
   setArrowAnimation(elem, on) {
     if (on && this.scrollanimationfinished) {
       elem.style.animation = 'none';
@@ -108,26 +104,25 @@ class Loopcontent extends React.Component {
   scrollToNextDiv(dir) {
     let now = new Date().getTime();
     if (now - this.lastArrowPressedTime > 500 || this.needDoubleScroll) {
-      let contratio = ((this.loop.scrollTop / 720.0) - this.focusedContentIndex + 1)
+      let contratio = ((this.loop.scrollTop / this.loopcontentheight) - this.loopContentIndex)
       if (dir > 0 && (contratio > 0.3 || now - this.arrowPressedTime < 300))
-        this.focusedContentIndex += dir
+        this.loopContentIndex += dir
 
       // Checking for out of bounds index:
-      if (this.focusedContentIndex > 6) {
+      if (this.loopContentIndex > this.loopcontents.length) {
         this.loop.scrollTo(0, 1);
         // need this double scroll because we cant scroll twice in one function call
         setTimeout(() => this.scrollToNextDiv(1), 0);
         this.needDoubleScroll = true;
-      } else if (this.focusedContentIndex < 1) {
+      } else if (this.loopContentIndex < 0) {
         this.loop.scrollBy(0, -1);
         setTimeout(() => this.scrollToNextDiv(-1), 0);
         this.needDoubleScroll = true;
       } else {
-        let nextdiv = document.getElementById("cont" + this.focusedContentIndex);
-        nextdiv.scrollIntoView({ behavior: "smooth" });
+        this.loopcontents[this.loopContentIndex].scrollIntoView({ behavior: "smooth" });
         this.needDoubleScroll = false;
       }
-      console.log("ContIndex: " + this.focusedContentIndex)
+      // console.log("ContIndex: " + this.loopContentIndex)
 
       this.lastArrowPressedTime = now;
     }
@@ -139,7 +134,6 @@ class Loopcontent extends React.Component {
       this.loop.scrollBy(0, 4 * arrow);
     }.bind(this), 0);
   }
-
   onScrollArrowReleased(arrow) {
     clearTimeout(this.autoScrollTimer);
     this.scrollToNextDiv(arrow)
@@ -155,40 +149,40 @@ class Loopcontent extends React.Component {
           src={require("../resources/images/downarrow.png")} onMouseOver={(event) => this.setArrowAnimation(event.target, true)}
           onMouseLeave={(event) => this.setArrowAnimation(event.target, false)} className={`${this.state.scrollAnimationDown ? "bounceDown" : ""}`} alt="Down" />
 
-        <div id="loopcontent" onMouseLeave={() => (globalstateobj.mouseToRed = false)} onMouseOver={() => (globalstateobj.mouseToRed = true)} className={`${this.state.borderAnimation === "on" ? "animate-on" : "animate-off"}`}>
+        <div id="loop" onMouseLeave={() => (globalstateobj.mouseToRed = false)} onMouseOver={() => (globalstateobj.mouseToRed = true)} className={`${this.state.borderAnimation === "on" ? "animate-on" : "animate-off"}`}>
           <div style={{ height: "3600px" }}>
-            <div style={{ height: "720px" }} id="cont1">
+            <div className="loopcontent">
               <br />
               <br />
               <h1>Welcome to my</h1>
               <h1>World</h1>
             </div>
-            <div style={{ height: "720px" }} id="cont2">
+            <div className="loopcontent">
               <br />
               <br />
               <h1>Some Music</h1>
               <p>To enjoy the ride on my site you can listen to chill spacey music. Feel free to press play:)</p>
             </div>
-            <div style={{ height: "720px" }} id="cont3">
+            <div className="loopcontent">
               <br />
               <br />
               <h1>My Workspace</h1>
               <p>If you don't have great sound, nice lights and a powerfull PC, get it NOW!</p>
             </div>
-            <div style={{ height: "720px" }} id="cont4">
+            <div className="loopcontent">
               <br />
               <br />
               <h1>Things I find</h1>
               <h1>interesting</h1>
             </div>
-            <div style={{ height: "720px" }} id="cont5">
+            <div className="loopcontent">
               <br />
               <br />
               <h1>Ty &lt;3</h1>
               <ImmortalizerForm />
             </div>
           </div>
-          <div className="isclone" id="cont6" style={{ height: "720px" }}>
+          <div className="isclone loopcontent">
             <br />
             <br />
             <h1>Welcome to my</h1>
@@ -200,4 +194,4 @@ class Loopcontent extends React.Component {
   }
 }
 
-export default Loopcontent;
+export default Loop;

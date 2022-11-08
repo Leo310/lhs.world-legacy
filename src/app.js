@@ -1,7 +1,7 @@
 import React from "react";
 
 import Clock from "./components/clock";
-import Loopcontent from "./components/loopcontent";
+import Loop from "./components/loop";
 import Name from "./components/name";
 import Threecontainer from "./components/threecontainer";
 
@@ -21,7 +21,7 @@ function App() {
           require("./resources/music/music2.mp3")} />
       </audio>
       <Name />
-      <Loopcontent />
+      <Loop />
       <Threecontainer />
     </>
   );
