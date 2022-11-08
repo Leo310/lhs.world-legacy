@@ -68,29 +68,6 @@ body {
   pointer-events: none;
 }
 
-.downarrow {
-	margin-top: 1vw;
-	width: auto;
-	height: 2.2em;
-	/* animation: bounce 2s 3; */
-}
-
-.bounce {
-  animation: bounce 2s 2;
-}
-
-@keyframes bounce {
-  0%, 20%, 50%, 80%, 100% {
-    transform: translateY(0);
-  }
-  40% {
-    transform: translateY(-1vw);
-  }
-  60% {
-    transform: translateY(-0.5vw);
-  }
-}
-
 h1 {
   background-position: 0% top;
   background: linear-gradient(to bottom, var(--text-fade) 40%, var(--text-color) 60%);
@@ -163,7 +140,7 @@ h1 {
 	/* to have sime size as child element */
 	height: fit-content;
 	background-color: var(--bg-color);
-	border-radius: 25px;
+	border-radius: 20px;
 	border: 3px solid #fff;
 	width: 22ex;
   font-size: 3.0vw;
@@ -197,10 +174,55 @@ h1 {
 	animation: off 0.6s forwards;
 }
 
+#uparrow {
+	position: absolute;
+	height: 8%;
+	top: 72%;
+	left: 52%;
+}
+
+#downarrow {
+	position: absolute;
+	height: 8%;
+	left: 52%;
+	bottom: 12%;
+}
+
+.bounceDown {
+  animation: bounceDown 2s 1;
+}
+
+@keyframes bounceDown {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(1vw);
+  }
+  60% {
+    transform: translateY(0.5vw);
+  }
+}
+.bounceUp {
+  animation: bounceUp 2s 1;
+}
+
+@keyframes bounceUp {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-1vw);
+  }
+  60% {
+    transform: translateY(-0.5vw);
+  }
+}
+
 #loopcontent {
 	padding-left: 1%;
 	padding-right: 1%;
-	border-radius: 25px;
+	border-radius: 20px;
 	border: 3px solid #fff;
 	background-color: var(--bg-color);
 	font-size: 1.3vw;
@@ -208,7 +230,7 @@ h1 {
   top: 60%;
   left: 8%;
   height: 40%;
-  width: 44%;
+  width: 42%;
   position: absolute;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
@@ -238,7 +260,7 @@ input[type=submit] {
 	padding: 1%;
 	background-color: transparent;
 	text-align: center;
-	border-radius: 25px;
+	border-radius: 20px;
 	border: 3px solid var(--text-fade);
 }
 
