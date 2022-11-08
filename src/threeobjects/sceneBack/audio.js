@@ -25,18 +25,12 @@ export default function Audio() {
   this.icons[1].mesh.visible = false;
   this.group = new THREE.Group();
   this.icons.forEach((icon) => this.group.add(icon.mesh));
-  let elem = null;
-  let iterator = 0;
-  this.audioElems = [];
-  while ((elem = document.getElementById("audio" + iterator)) !== null) {
-    this.audioElems.push(elem)
-    iterator++;
-  }
+  this.audioElems = document.getElementsByClassName("audio");
   this.audioIndex = 0;
 
   this.ended = false;
-  this.audioElems.forEach(elem => {
-    elem.addEventListener("ended", () => {
+  for (let i = 0; i < this.audioElems.length; i++) {
+    this.audioElems[i].addEventListener("ended", () => {
       this.icons[1].mesh.visible = false;
       this.icons[1].mesh.position.z -= 1;
       this.icons[0].mesh.visible = true;
@@ -47,7 +41,7 @@ export default function Audio() {
         this.audioIndex = 0;
       this.playAudio()
     });
-  })
+  }
 
   this.isPlaying = false;
 

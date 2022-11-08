@@ -8,15 +8,15 @@ import Threecontainer from "./components/threecontainer";
 function App() {
   return (
     <>
-      <audio id="audio0">
+      <audio className="audio">
         <source src={
           require("./resources/music/music1.mp3")} />
       </audio>
-      <audio id="audio1">
+      <audio className="audio">
         <source src={
           require("./resources/music/music0.wav")} />
       </audio>
-      <audio id="audio2">
+      <audio className="audio">
         <source src={
           require("./resources/music/music2.mp3")} />
       </audio>
