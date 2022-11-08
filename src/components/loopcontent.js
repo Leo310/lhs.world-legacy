@@ -15,6 +15,7 @@ class Loopcontent extends React.Component {
     this.notfirstreloadscroll = false;
     this.scrollanimationfinished = true;
 
+    // starts with 1
     this.focusedContentIndex = 1;
     this.lastFocusedContentIndex = 1;
     this.lastArrowPressedTime = 0;
@@ -43,6 +44,7 @@ class Loopcontent extends React.Component {
     // and we want it to be bigger than 3600 so that Math.ceil spits out index 6 instead of 5
     this.focusedContentIndex = Math.ceil((2 + this.loop.scrollTop) / 720)
     console.log("ContIndexA: " + this.focusedContentIndex)
+    console.log("ScrollTopA: " + this.loop.scrollTop)
     // scroll gets executed on page load somewhy
     if (this.onscroll && this.notfirstreloadscroll) {
       this.setState({ borderAnimation: "on" });
@@ -81,7 +83,7 @@ class Loopcontent extends React.Component {
       this.disableScrollCheck = true;
     }
   }
-  setScrollAnimation(elem, on) {
+  setArrowAnimation(elem, on) {
     if (on && this.scrollanimationfinished) {
       elem.style.animation = 'none';
       elem.style.animation = '';
@@ -106,7 +108,10 @@ class Loopcontent extends React.Component {
   scrollToNextDiv(dir) {
     let now = new Date().getTime();
     if (now - this.lastArrowPressedTime > 500 || this.needDoubleScroll) {
-      this.focusedContentIndex += dir
+      let contratio = ((this.loop.scrollTop / 720.0) - this.focusedContentIndex + 1)
+      if (dir > 0 && (contratio > 0.3 || now - this.arrowPressedTime < 300))
+        this.focusedContentIndex += dir
+
       // Checking for out of bounds index:
       if (this.focusedContentIndex > 6) {
         this.loop.scrollTo(0, 1);
@@ -128,14 +133,28 @@ class Loopcontent extends React.Component {
     }
   }
 
+  onScrollArrowPressed(arrow) {
+    this.arrowPressedTime = new Date().getTime();
+    this.autoScrollTimer = window.setInterval(function() {
+      this.loop.scrollBy(0, 4 * arrow);
+    }.bind(this), 0);
+  }
+
+  onScrollArrowReleased(arrow) {
+    clearTimeout(this.autoScrollTimer);
+    this.scrollToNextDiv(arrow)
+  }
+
   render() {
-    // window.setInterval(function() {
-    //   this.loop.scrollTop += 3;
-    // }.bind(this), 12);
     return (
       <>
-        <img id="uparrow" /*onMouseDown={() => this.scolling = setInterval(() => this.loop.scrollBy(0, -1), 1)} onMouseUp={() => clearInterval(this.scolling)}*/ onClick={() => this.scrollToNextDiv(-1)} src={require("../resources/images/uparrow.png")} onMouseOver={(event) => this.setScrollAnimation(event.target, true)} onMouseLeave={(event) => this.setScrollAnimation(event.target, false)} className={`${this.state.scrollAnimationUp ? "bounceUp" : ""}`} alt="Up" />
-        <img id="downarrow" onClick={() => this.scrollToNextDiv(1)} src={require("../resources/images/downarrow.png")} onMouseOver={(event) => this.setScrollAnimation(event.target, true)} onMouseLeave={(event) => this.setScrollAnimation(event.target, false)} className={`${this.state.scrollAnimationDown ? "bounceDown" : ""}`} alt="Down" />
+        <img id="uparrow" onMouseDown={() => this.onScrollArrowPressed(-1)} onMouseUp={() => this.onScrollArrowReleased(-1)}
+          src={require("../resources/images/uparrow.png")} onMouseOver={(event) => this.setArrowAnimation(event.target, true)}
+          onMouseLeave={(event) => this.setArrowAnimation(event.target, false)} className={`${this.state.scrollAnimationUp ? "bounceUp" : ""}`} alt="Up" />
+        <img id="downarrow" onMouseDown={() => this.onScrollArrowPressed(1)} onMouseUp={() => this.onScrollArrowReleased(1)}
+          src={require("../resources/images/downarrow.png")} onMouseOver={(event) => this.setArrowAnimation(event.target, true)}
+          onMouseLeave={(event) => this.setArrowAnimation(event.target, false)} className={`${this.state.scrollAnimationDown ? "bounceDown" : ""}`} alt="Down" />
+
         <div id="loopcontent" onMouseLeave={() => (globalstateobj.mouseToRed = false)} onMouseOver={() => (globalstateobj.mouseToRed = true)} className={`${this.state.borderAnimation === "on" ? "animate-on" : "animate-off"}`}>
           <div style={{ height: "3600px" }}>
             <div style={{ height: "720px" }} id="cont1">
