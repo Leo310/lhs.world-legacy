@@ -176,9 +176,9 @@ h1 {
 
 #line {
 	position: absolute;
-	top: 65%;
+	top: 67%;
 	left: 51.8%;
-	height: 30%;
+	height: 26%;
 	width: 5%;
 }
 
@@ -187,19 +187,21 @@ h1 {
 	height: 8%;
 	top: 72%;
 	left: 52%;
+	transition: 0.1s ease-in-out;
 }
 #uparrow:active {
-  transform: translateY(-3vw);
+  transform: translateY(-2vw);
 }
 
 #downarrow {
+	transition: 0.1s ease-in-out;
 	position: absolute;
 	height: 8%;
 	left: 52%;
 	bottom: 12%;
 }
 #downarrow:active {
-  transform: translateY(3vw);
+  transform: translateY(2vw);
 }
 
 #loop {
