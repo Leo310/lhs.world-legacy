@@ -174,31 +174,59 @@ h1 {
 	animation: off 0.6s forwards;
 }
 
-#line {
+#loopcontrolls {
 	position: absolute;
-	top: 67%;
-	left: 51.8%;
+	width: 10%;
+	height: 20%;
+	top: 80%;
+	transform: translateY(-50%);
+	left: 50%;
+}
+
+#line {
 	height: 26%;
 	width: 5%;
 }
 
+#circlearrow {
+	width: 25%;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: -7%;
+	margin-top: -7%;
+	transition: 1s ease-in-out;
+}
+#downarrow:active + #circlearrow {
+  transform: rotate(-360deg);
+}
+#uparrow:active + #circlearrow {
+  transform: rotate(360deg);
+}
+
 #uparrow {
-	position: absolute;
-	height: 8%;
-	top: 72%;
-	left: 52%;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 55%;
 	transition: 0.1s ease-in-out;
+}
+#uparrow:hover {
+  transform: translateY(-0.3vw);
 }
 #uparrow:active {
   transform: translateY(-2vw);
 }
 
 #downarrow {
+	display: block;
+	width: 55%;
+	margin-left: auto;
+	margin-right: auto;
 	transition: 0.1s ease-in-out;
-	position: absolute;
-	height: 8%;
-	left: 52%;
-	bottom: 12%;
+}
+#downarrow:hover {
+  transform: translateY(0.3vw);
 }
 #downarrow:active {
   transform: translateY(2vw);

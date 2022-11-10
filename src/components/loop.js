@@ -114,7 +114,7 @@ class Loop extends React.Component {
     // delay to remove stuttering
     this.autoScrollDelay = setTimeout(() => {
       this.autoScrollInterval = window.setInterval(() => {
-        this.loop.scrollBy(0, 4 * arrow);
+        this.loop.scrollBy(0, 5 * arrow);
       }, 0);
     }, 100)
   }
@@ -127,11 +127,13 @@ class Loop extends React.Component {
   render() {
     return (
       <>
-        <img id="line" src={require("../resources/images/line.png")} />
-        <img id="uparrow" onMouseDown={() => this.onScrollArrowPressed(-1)} onMouseLeave={() => this.onScrollArrowReleased(-1)}
-          onMouseUp={() => this.onScrollArrowReleased(-1)} src={require("../resources/images/uparrow.png")} alt="Up" />
-        <img id="downarrow" onMouseDown={() => { this.onScrollArrowPressed(1) }} onMouseLeave={() => this.onScrollArrowReleased(1)}
-          onMouseUp={() => this.onScrollArrowReleased(1)} src={require("../resources/images/downarrow.png")} alt="Down" />
+        <div id="loopcontrolls">
+          <img id="uparrow" onMouseDown={() => this.onScrollArrowPressed(-1)} onMouseLeave={() => this.onScrollArrowReleased(-1)}
+            onMouseUp={() => this.onScrollArrowReleased(-1)} src={require("../resources/images/uparrow.png")} alt="Up" />
+          <img id="circlearrow" src={require("../resources/images/circle.png")} />
+          <img id="downarrow" onMouseDown={() => { this.onScrollArrowPressed(1) }} onMouseLeave={() => this.onScrollArrowReleased(1)}
+            onMouseUp={() => this.onScrollArrowReleased(1)} src={require("../resources/images/downarrow.png")} alt="Down" />
+        </div>
         <div id="loop" onMouseLeave={() => (globalstateobj.mouseToRed = false)} onMouseOver={() => (globalstateobj.mouseToRed = true)} className={`${this.state.borderAnimation === "on" ? "animate-on" : "animate-off"}`}>
           <div style={{ height: "3600px" }}>
             <div className="loopcontent">
