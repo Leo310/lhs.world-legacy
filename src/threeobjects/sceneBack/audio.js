@@ -28,28 +28,21 @@ export default function Audio() {
   this.audioElems = document.getElementsByClassName("audio");
   this.audioIndex = 0;
 
-  this.ended = false;
+  this.isPlaying = false;
+
+  this.volume = 0.5;
+  // this.lastTime = 0;
+  this.icons[1].mesh.position.z -= 1; // because other needs to be in forground to be clicked
+  this.lastScrollPosition = 0;
+
   for (let i = 0; i < this.audioElems.length; i++) {
     this.audioElems[i].addEventListener("ended", () => {
-      this.icons[1].mesh.visible = false;
-      this.icons[1].mesh.position.z -= 1;
-      this.icons[0].mesh.visible = true;
-      this.icons[0].mesh.position.z += 1;
-      this.isPlaying = false;
       this.audioIndex++;
       if (this.audioIndex === this.audioElems.length)
         this.audioIndex = 0;
       this.playAudio()
     });
   }
-
-  this.isPlaying = false;
-
-  this.volume = 0.5;
-  // this.lastTime = 0;
-
-  this.icons[1].mesh.position.z -= 1; // because other needs to be in forground to be clicked
-  this.lastScrollPosition = 0;
 }
 
 Audio.prototype.playAudio = function() {
@@ -103,7 +96,7 @@ Audio.prototype.update = function() {
   });
 
   if (this.isPlaying) {
-    this.volume += -(globalstateobj.scrollPositionBody - this.lastScrollPosition) / 500;
+    this.volume += -(globalstateobj.scrollPositionBody - this.lastScrollPosition) / 1000;
     this.volume = Math.min(Math.max(0, this.volume), 1);
     this.audioElems[this.audioIndex].volume = this.volume;
   }
