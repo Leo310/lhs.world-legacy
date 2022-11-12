@@ -19,6 +19,8 @@ class Name extends React.Component {
     this.mySecondName = "Heininger";
     this.myreversename = this.mySecondName.split("").reverse().join("");
     this.switch = true;
+
+    this.scrollImageAppear = false;
   }
 
   componentDidMount() {
@@ -83,6 +85,10 @@ class Name extends React.Component {
     if (this.time >= this.animationTime) {
       clearInterval(this.timerId);
       this.setState({ active: "off", name: " " + this.myFirstName + this.mySecondName + " " });
+      if (!this.scrollImageAppear)
+        this.scrollImageAppear = true;
+      else
+        document.getElementById("scrolldown").style.visibility = "visible";
       this.clicked = false;
     }
   }

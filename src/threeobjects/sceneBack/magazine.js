@@ -45,12 +45,12 @@ Magazine.prototype.update = function() {
   if (frametime >= 1 / this.updatesPerSecond) {
     // smoother fade in of magazine
     let scrollDiff = globalstateobj.scrollPositionBody - this.lastScrollPosition;
-    this.moveBy.sub({ x: (scrollDiff / 14), y: (scrollDiff / 14), z: 0 });
+    this.moveBy.sub({ x: (scrollDiff / 19), y: (scrollDiff / 19), z: 0 });
     this.moveBy.min({ x: this.targetOrigin.x + this.outOfWindowOffset, y: this.targetOrigin.y + this.outOfWindowOffset, z: 0 });
     this.moveBy.max(this.targetOrigin);
     let targetDiff = new THREE.Vector3();
     targetDiff.subVectors(this.moveBy, this.origin);
-    this.origin.add(targetDiff.divide({ x: 4, y: 4, z: 1 }));
+    this.origin.add(targetDiff.divide({ x: 3, y: 3, z: 1 }));
 
     let offset = 0;
     this.group.children.forEach((bullet) => {

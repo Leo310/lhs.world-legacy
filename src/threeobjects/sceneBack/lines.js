@@ -15,6 +15,7 @@ export default function Lines() {
   this.points = [pointsDown, pointsUp]
 
   this.lastScrollPosition = 0;
+  this.lastWheelPosition = 0;
 
   this.group.translateZ(-8);
   this.lines = []
@@ -43,7 +44,8 @@ Lines.prototype.addLine = function(position, back) {
 }
 
 Lines.prototype.update = function() {
-  let scrollDiff = globalstateobj.scrollPositionBody - this.lastScrollPosition;
+  // scroll if scroll wheel is spinned. Even if already on bottom of page
+  let scrollDiff = (globalstateobj.scrollPositionBody - this.lastScrollPosition) || (globalstateobj.wheelPosition - this.lastWheelPosition);
   if (scrollDiff > 0) {
     if (this.accurateScrollPosition % this.lineRate == 0) {
       this.addLine(0, false);
@@ -79,5 +81,6 @@ Lines.prototype.update = function() {
     });
     this.accurateScrollPosition++;
   }
+  this.lastWheelPosition = globalstateobj.wheelPosition;
   this.lastScrollPosition = globalstateobj.scrollPositionBody;
 };

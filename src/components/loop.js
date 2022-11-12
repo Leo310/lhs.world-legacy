@@ -112,6 +112,7 @@ class Loop extends React.Component {
 
   onScrollArrowPressed(arrow) {
     this.arrowPressedTime = new Date().getTime();
+    document.getElementById("uparrow").style.visibility = "visible";
     // delay to remove stuttering
     this.autoScrollDelay = setTimeout(() => {
       this.autoScrollInterval = window.setInterval(() => {
