@@ -14,6 +14,7 @@ export default function SceneBack(threecontainer) {
 
   //renderer
   this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  this.renderer.setPixelRatio(window.devicePixelRatio);
   this.renderer.setSize(window.innerWidth, window.innerHeight);
   threecontainer.appendChild(this.renderer.domElement);
   this.renderer.domElement.id = "canvas";

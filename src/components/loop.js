@@ -19,6 +19,7 @@ class Loop extends React.Component {
     this.lastFocusedContentIndex = 0;
     this.lastArrowPressedTime = 0;
     this.scrolling = null;
+    this.mouseDown = false;
   }
   componentDidMount() {
     this.loopcontents = document.getElementsByClassName("loopcontent");
@@ -117,22 +118,26 @@ class Loop extends React.Component {
         this.loop.scrollBy(0, 5 * arrow);
       }, 0);
     }, 100)
+    this.mouseDown = true;
   }
   onScrollArrowReleased(arrow) {
-    clearTimeout(this.autoScrollDelay);
-    clearInterval(this.autoScrollInterval);
-    this.scrollToNextDiv(arrow)
+    if (this.mouseDown) {
+      clearTimeout(this.autoScrollDelay);
+      clearInterval(this.autoScrollInterval);
+      this.scrollToNextDiv(arrow)
+      this.mouseDown = false;
+    }
   }
 
   render() {
     return (
       <>
         <div id="loopcontrolls">
-          <img id="uparrow" onMouseDown={() => this.onScrollArrowPressed(-1)} onMouseLeave={() => this.onScrollArrowReleased(-1)}
-            onMouseUp={() => this.onScrollArrowReleased(-1)} src={require("../resources/images/uparrow.png")} alt="Up" />
+          <img id="uparrow" onMouseDown={() => this.onScrollArrowPressed(-1)} onMouseLeave={() => { this.onScrollArrowReleased(-1); globalstateobj.mouseToRed = false }}
+            onMouseUp={() => this.onScrollArrowReleased(-1)} onMouseOver={() => (globalstateobj.mouseToRed = true)} src={require("../resources/images/uparrow.png")} alt="Up" />
           <img id="circlearrow" src={require("../resources/images/circle.png")} />
-          <img id="downarrow" onMouseDown={() => { this.onScrollArrowPressed(1) }} onMouseLeave={() => this.onScrollArrowReleased(1)}
-            onMouseUp={() => this.onScrollArrowReleased(1)} src={require("../resources/images/downarrow.png")} alt="Down" />
+          <img id="downarrow" onMouseDown={() => { this.onScrollArrowPressed(1) }} onMouseLeave={() => { this.onScrollArrowReleased(1); globalstateobj.mouseToRed = false }}
+            onMouseUp={() => this.onScrollArrowReleased(1)} onMouseOver={() => (globalstateobj.mouseToRed = true)} src={require("../resources/images/downarrow.png")} alt="Down" />
         </div>
         <div id="loop" onMouseLeave={() => (globalstateobj.mouseToRed = false)} onMouseOver={() => (globalstateobj.mouseToRed = true)} className={`${this.state.borderAnimation === "on" ? "animate-on" : "animate-off"}`}>
           <div style={{ height: "3600px" }}>

@@ -44,7 +44,7 @@ Lines.prototype.addLine = function(position, back) {
 
 Lines.prototype.update = function() {
   let scrollDiff = globalstateobj.scrollPositionBody - this.lastScrollPosition;
-  if (scrollDiff < 0) {
+  if (scrollDiff > 0) {
     if (this.accurateScrollPosition % this.lineRate == 0) {
       this.addLine(0, false);
       this.addLine(1, false);
@@ -60,7 +60,7 @@ Lines.prototype.update = function() {
       }
     });
     this.accurateScrollPosition++;
-  } else if (scrollDiff > 0) {
+  } else if (scrollDiff < 0) {
     if (this.accurateScrollPosition % this.lineRate == 0) {
       this.addLine(0, true);
       this.addLine(1, true);

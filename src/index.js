@@ -34,4 +34,8 @@ document.body.addEventListener("wheel", (e) => {
 
 initMatomo();
 
+// prevents scroll restoring after page refresh
+if (window.history.scrollRestoration)
+  window.history.scrollRestoration = 'manual';
+
 ReactDOM.render(<App />, document.getElementById("root"));
