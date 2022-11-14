@@ -30,11 +30,10 @@ document.body.addEventListener(
 
 document.body.addEventListener("wheel", (e) => {
   globalstateobj.wheelPosition += e.deltaY;
-});
+}, { passive: true });
 
 window.onscroll = () => {
   globalstateobj.scrollPositionBody = window.scrollY;
-  console.log(globalstateobj.scrollPositionBody)
 }
 
 initMatomo();

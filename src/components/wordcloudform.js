@@ -2,7 +2,8 @@ import React from "react";
 
 import globalstateobj from "../globalstate";
 
-class ImmortalizerForm extends React.Component {
+class WordcloudForm extends React.Component {
+  state = { wordcloudfallback: false };
   constructor(props) {
     super(props);
     this.state = { value: '' };
@@ -29,10 +30,12 @@ class ImmortalizerForm extends React.Component {
       globalstateobj.wordcloudurl = url;
       globalstateobj.wordcloudchanged = true;
     }).catch(() => {
-      globalstateobj.wordcloudurl = url;
-      globalstateobj.wordcloudchanged = true;
-    })
+      // fallback
+      globalstateobj.wordcloudfallback = true;
+      this.setState({ wordcloudfallback: true })
+    });
   }
+
   handleSubmit(event) {
     this.fetchWordcloud();
 
@@ -42,17 +45,28 @@ class ImmortalizerForm extends React.Component {
   render() {
     return (
       <>
-        <p>Immortalize yourself here. Be aware, you can only do it once and you can't go back!</p>
-        <form onSubmit={this.handleSubmit} style={{
-          display: "inline-block", width: "100%"
-        }}>
-          <input placeholder="Your words" type="text" value={this.state.value} onChange={
-            this.handleChange} />
-          <input type="submit" value="Submit" />
-        </form>
+        <div>
+          <h1>Ty &lt;3</h1>
+          {this.state.wordcloudfallback ? (
+            <div>
+              <p>The wordcloud is currently offline :(</p>
+            </div>
+          ) : (
+            <div>
+              <p>Immortalize yourself here. Be aware, you can only do it once and you can't go back!</p>
+              <form onSubmit={this.handleSubmit} style={{
+                display: "inline-block", width: "100%"
+              }}>
+                <input placeholder="Your words" type="text" value={this.state.value} onChange={
+                  this.handleChange} />
+                <input type="submit" value="Submit" />
+              </form>
+            </div>
+          )}
+        </div>
       </>
     );
   }
 }
 
-export default ImmortalizerForm;
+export default WordcloudForm;

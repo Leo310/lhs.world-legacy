@@ -3,7 +3,7 @@ import * as THREE from "three";
 import globalstateobj from "../../globalstate";
 
 import Audio from "./audio";
-import Immortalizer from "./immortalizer";
+import Wordcloud from "./wordcloud";
 import MyRoom from "./myroom";
 import MyWorld from "./myworld";
 import Skills from "./skills";
@@ -11,7 +11,7 @@ import Skills from "./skills";
 export default function Magazine() {
   this.magazine = [
     new MyWorld(),
-    new Immortalizer(),
+    new Wordcloud(),
     new Skills(),
     new MyRoom(),
     new Audio(),
@@ -60,10 +60,10 @@ Magazine.prototype.update = function() {
         this.origin.y + -Math.cos(this.currentAngle - offset) * this.radius;
       bullet.position.z =
         this.origin.z + Math.sin(this.currentAngle - offset) * this.radius;
-      offset += (360 / this.magazine.length / 180) * Math.PI;
+      offset -= (360 / this.magazine.length / 180) * Math.PI;
     });
     this.magazine.forEach((bullet) => { bullet.update(); });
-    this.currentAngle = ((-globalstateobj.scrollPositionLoop / 10.0) / 180) *
+    this.currentAngle = ((globalstateobj.scrollPositionLoop / 10.0) / 180) *
       Math.PI;
     this.lastTime = window.performance.now();
     this.lastScrollPosition = globalstateobj.scrollPositionBody;

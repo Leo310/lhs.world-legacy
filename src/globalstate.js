@@ -10,6 +10,7 @@ function Globalstate() {
   this.mouseDown = false;
   this.wordcloudchanged = false;
   this.wordcloudurl = "";
+  this.wordcloudfallback = false;
 }
 
 export default new Globalstate();

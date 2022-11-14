@@ -2,7 +2,7 @@ import React from "react";
 
 import globalstateobj from "../globalstate";
 
-import ImmortalizerForm from "./immortalizerform"
+import WordcloudForm from "./wordcloudform"
 
 class Loop extends React.Component {
   state = { borderAnimation: "", scrollAnimationUp: false, scrollAnimationDown: false };
@@ -169,8 +169,7 @@ class Loop extends React.Component {
             <div className="loopcontent">
               <br />
               <br />
-              <h1>Ty &lt;3</h1>
-              <ImmortalizerForm />
+              <WordcloudForm />
             </div>
           </div>
           <div className="isclone loopcontent">

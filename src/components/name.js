@@ -31,8 +31,8 @@ class Name extends React.Component {
     this.setState({ active: "on" });
     this.time = 0;
     if (this.switch) {
-      this.myFirstName = "Renaldo ";
-      this.mySecondName = "Herginnie";
+      this.myFirstName = "Hi, I ";
+      this.mySecondName = "am... ";
       this.myreversename = this.mySecondName.split("").reverse().join("");
       this.switch = false;
     } else {

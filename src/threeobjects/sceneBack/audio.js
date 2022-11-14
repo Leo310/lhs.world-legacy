@@ -30,10 +30,7 @@ export default function Audio() {
 
   this.isPlaying = false;
 
-  this.volume = 0.5;
-  // this.lastTime = 0;
   this.icons[1].mesh.position.z -= 1; // because other needs to be in forground to be clicked
-  this.lastScrollPosition = 0;
 
   for (let i = 0; i < this.audioElems.length; i++) {
     this.audioElems[i].addEventListener("ended", () => {
@@ -50,6 +47,7 @@ Audio.prototype.playAudio = function() {
   this.icons[1].mesh.visible = true;
   if (!this.isPlaying)
     this.icons[1].mesh.position.z += 2;
+  this.audioElems[this.audioIndex].volume = 0.6;
   this.audioElems[this.audioIndex].play();
   this.isPlaying = true;
 }
@@ -63,7 +61,6 @@ Audio.prototype.pauseAudio = function() {
 }
 
 Audio.prototype.update = function() {
-  // let frametime = (window.performance.now() - this.lastTime) / 1000;
   this.icons.every((icon, index) => {
     if (icon.mesh.uuid === globalstateobj.clickedUuid) {
       globalstateobj.clickedUuid = "";
@@ -94,15 +91,4 @@ Audio.prototype.update = function() {
     }
     return true;
   });
-
-  if (this.isPlaying) {
-    this.volume += -(globalstateobj.scrollPositionBody - this.lastScrollPosition) / 1000;
-    this.volume = Math.min(Math.max(0, this.volume), 1);
-    this.audioElems[this.audioIndex].volume = this.volume;
-  }
-
-  this.lastScrollPosition = globalstateobj.scrollPositionBody;
-  // if (frametime >= ) {
-  //   this.lastTime = window.performance.now();
-  // }
 };
