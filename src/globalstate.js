@@ -8,6 +8,7 @@ function Globalstate() {
   this.clickedUuid = "";
   this.hoveredUuid = "";
   this.mouseToRed = false;
+  this.mouseToRedFromHtml = false;
   this.mouseDown = false;
   this.wordcloudchanged = false;
   this.wordcloudurl = "";

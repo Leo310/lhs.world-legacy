@@ -96,12 +96,11 @@ class Name extends React.Component {
   render() {
     return (
       <div id="nameWrapper" className={`${this.state.active === "on" ? "animate-on" : "animate-off"}`}>
-        <h1 onClick={this.randomizeName} onMouseLeave=
-          {() => globalstateobj.mouseToRed = false} onMouseOver=
-          {() => globalstateobj.mouseToRed = true} className="name">{
-            this.state.name}
+        <h1 onClick={this.randomizeName} onMouseLeave={() => globalstateobj.mouseToRedFromHtml = false}
+          onMouseOver={() => { globalstateobj.mouseToRedFromHtml = true; globalstateobj.mouseToRed = true }}
+          className="name">{this.state.name}
         </h1>
-      </div>);
+      </div >);
   }
 }
 export default Name;

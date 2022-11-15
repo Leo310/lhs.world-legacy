@@ -134,13 +134,15 @@ class Loop extends React.Component {
     return (
       <>
         <div id="loopcontrolls">
-          <img id="uparrow" onMouseDown={() => this.onScrollArrowPressed(-1)} onMouseLeave={() => { this.onScrollArrowReleased(-1); globalstateobj.mouseToRed = false }}
-            onMouseUp={() => this.onScrollArrowReleased(-1)} onMouseOver={() => (globalstateobj.mouseToRed = true)} src={require("../resources/images/uparrow.png")} alt="Up" />
+          <img id="uparrow" onMouseDown={() => this.onScrollArrowPressed(-1)} onMouseLeave={() => { this.onScrollArrowReleased(-1); globalstateobj.mouseToRedFromHtml = false }}
+            onMouseUp={() => this.onScrollArrowReleased(-1)} onMouseOver={() => { globalstateobj.mouseToRedFromHtml = true; globalstateobj.mouseToRed = true }} src={require("../resources/images/uparrow.png")} alt="Up" />
           <img id="circlearrow" src={require("../resources/images/circle.png")} />
-          <img id="downarrow" onMouseDown={() => { this.onScrollArrowPressed(1) }} onMouseLeave={() => { this.onScrollArrowReleased(1); globalstateobj.mouseToRed = false }}
-            onMouseUp={() => this.onScrollArrowReleased(1)} onMouseOver={() => (globalstateobj.mouseToRed = true)} src={require("../resources/images/downarrow.png")} alt="Down" />
+          <img id="downarrow" onMouseDown={() => { this.onScrollArrowPressed(1) }} onMouseLeave={() => { this.onScrollArrowReleased(1); globalstateobj.mouseToRedFromHtml = false }}
+            onMouseUp={() => this.onScrollArrowReleased(1)} onMouseOver={() => { globalstateobj.mouseToRedFromHtml = true; globalstateobj.mouseToRed = true }} src={require("../resources/images/downarrow.png")} alt="Down" />
         </div>
-        <div id="loop" onMouseLeave={() => (globalstateobj.mouseToRed = false)} onMouseOver={() => (globalstateobj.mouseToRed = true)} className={`${this.state.borderAnimation === "on" ? "animate-on" : "animate-off"}`}>
+        <div id="loop" onMouseLeave={() => globalstateobj.mouseToRedFromHtml = false}
+          onMouseOver={() => { globalstateobj.mouseToRedFromHtml = true; globalstateobj.mouseToRed = true }}
+          className={`${this.state.borderAnimation === "on" ? "animate-on" : "animate-off"}`}>
           <div style={{ height: "3600px" }}>
             <div className="loopcontent">
               <br />

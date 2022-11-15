@@ -87,7 +87,8 @@ SceneBack.prototype.update = function() {
     globalstateobj.raycasting = false;
   } else if (globalstateobj.raycasting && now - this.lastRayCastTime > 100) {
     this.updateRaycaster(false);
-    globalstateobj.mouseToRed = false;
+    if (!globalstateobj.mouseToRedFromHtml)
+      globalstateobj.mouseToRed = false;
     globalstateobj.raycasting = false;
     this.lastRayCastTime = now;
   }
