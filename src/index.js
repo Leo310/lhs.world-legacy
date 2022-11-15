@@ -11,7 +11,7 @@ function updateMouse(event) {
   globalstateobj.mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
 }
 
-document.body.addEventListener("mousemove", updateMouse);
+document.body.addEventListener("mousemove", (e) => { updateMouse(e); globalstateobj.raycasting = true; });
 document.body.addEventListener("mouseenter", updateMouse);
 document.body.addEventListener("mouseleave", updateMouse);
 
@@ -32,11 +32,9 @@ document.body.addEventListener("wheel", (e) => {
   globalstateobj.wheelPosition += e.deltaY;
 }, { passive: true });
 
-document.body.addEventListener("mousemove", () => globalstateobj.raycasting = true)
-
-window.onscroll = () => {
+document.addEventListener("scroll", () => {
   globalstateobj.scrollPositionBody = window.scrollY;
-}
+}, { passive: true });
 
 initMatomo();
 

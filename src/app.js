@@ -1,6 +1,6 @@
 import React from "react";
 
-import Clock from "./components/clock";
+// import Clock from "./components/clock";
 import Loop from "./components/loop";
 import Name from "./components/name";
 import Threecontainer from "./components/threecontainer";
@@ -22,8 +22,10 @@ function App() {
           require("./resources/music/music2.mp3")} />
       </audio>
       <Name />
-      <img id="scrolldown" onMouseDown={() => window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" })} onMouseLeave={() => { globalstateobj.mouseToRed = false }} onMouseOver={() => { globalstateobj.mouseToRed = true }}
-        src={require("./resources/images/scrolldown.png")} />
+      <img id="scrolldown" onMouseDown={() => window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" })}
+        onMouseLeave={() => globalstateobj.mouseToRedFromHtml = false}
+        onMouseOver={() => { globalstateobj.mouseToRedFromHtml = true; globalstateobj.mouseToRed = true }}
+        src={require("./resources/images/scrolldown.png")} alt="Scroll Down" />
       <Loop />
       <Threecontainer />
     </>

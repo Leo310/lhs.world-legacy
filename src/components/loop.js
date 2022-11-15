@@ -30,8 +30,8 @@ class Loop extends React.Component {
     this.loop = document.getElementById("loop");
     // if scrolled in loopcontent, dont want to trigger wheel event in body.
     // thats why second listener on wheel which stops propagation and set to true
-    this.loop.addEventListener("scroll", () => this.onScroll(), true);
-    this.loop.addEventListener("wheel", (e) => e.stopPropagation(), true);
+    this.loop.addEventListener("scroll", () => this.onScroll(), { passive: true, capture: true });
+    this.loop.addEventListener("wheel", (e) => e.stopPropagation(), { passive: true, capture: true });
     this.loop.scrollTop = 1; // to allow upwards scrolling
     this.scrollHeight = this.loop.scrollHeight;
     // console.log(this.scrollHeight);
@@ -135,10 +135,12 @@ class Loop extends React.Component {
       <>
         <div id="loopcontrolls">
           <img id="uparrow" onMouseDown={() => this.onScrollArrowPressed(-1)} onMouseLeave={() => { this.onScrollArrowReleased(-1); globalstateobj.mouseToRedFromHtml = false }}
-            onMouseUp={() => this.onScrollArrowReleased(-1)} onMouseOver={() => { globalstateobj.mouseToRedFromHtml = true; globalstateobj.mouseToRed = true }} src={require("../resources/images/uparrow.png")} alt="Up" />
-          <img id="circlearrow" src={require("../resources/images/circle.png")} />
+            onMouseUp={() => this.onScrollArrowReleased(-1)} onMouseOver={() => { globalstateobj.mouseToRedFromHtml = true; globalstateobj.mouseToRed = true }}
+            src={require("../resources/images/uparrow.png")} alt="Up" />
+          <img id="circlearrow" src={require("../resources/images/circle.png")} alt="" />
           <img id="downarrow" onMouseDown={() => { this.onScrollArrowPressed(1) }} onMouseLeave={() => { this.onScrollArrowReleased(1); globalstateobj.mouseToRedFromHtml = false }}
-            onMouseUp={() => this.onScrollArrowReleased(1)} onMouseOver={() => { globalstateobj.mouseToRedFromHtml = true; globalstateobj.mouseToRed = true }} src={require("../resources/images/downarrow.png")} alt="Down" />
+            onMouseUp={() => this.onScrollArrowReleased(1)} onMouseOver={() => { globalstateobj.mouseToRedFromHtml = true; globalstateobj.mouseToRed = true }}
+            src={require("../resources/images/downarrow.png")} alt="Down" />
         </div>
         <div id="loop" onMouseLeave={() => globalstateobj.mouseToRedFromHtml = false}
           onMouseOver={() => { globalstateobj.mouseToRedFromHtml = true; globalstateobj.mouseToRed = true }}
