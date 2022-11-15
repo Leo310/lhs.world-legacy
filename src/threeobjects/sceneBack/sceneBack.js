@@ -52,9 +52,11 @@ export default function SceneBack(threecontainer) {
   // this.composer.addPass( renderPass );
   // const glitchPass = new BloomPass();
   // this.composer.addPass( glitchPass );
+  //
+  this.lastRayCastTime = 0;
 }
 
-SceneBack.prototype.updateRaycaster = function() {
+SceneBack.prototype.updateRaycaster = function(clicked) {
   let mousePos = new THREE.Vector2(
     globalstateobj.mouseX,
     globalstateobj.mouseY
@@ -65,7 +67,10 @@ SceneBack.prototype.updateRaycaster = function() {
   if (intersects[0]) {
     this.scene.traverse((child) => {
       if (child.isMesh && intersects[0].object.uuid === child.uuid)
-        globalstateobj.clickedUuid = child.uuid;
+        if (clicked)
+          globalstateobj.clickedUuid = child.uuid;
+        else
+          globalstateobj.hoveredUuid = child.uuid;
     });
   }
 };
@@ -76,8 +81,16 @@ SceneBack.prototype.update = function() {
 
   this.composer.render()
 
-  if (globalstateobj.raycasting) this.updateRaycaster();
-  globalstateobj.raycasting = false;
+  let now = new Date().getTime()
+  if (globalstateobj.raycasting && globalstateobj.mouseDown) {
+    this.updateRaycaster(true);
+    globalstateobj.raycasting = false;
+  } else if (globalstateobj.raycasting && now - this.lastRayCastTime > 100) {
+    this.updateRaycaster(false);
+    globalstateobj.mouseToRed = false;
+    globalstateobj.raycasting = false;
+    this.lastRayCastTime = now;
+  }
 
   if (
     this.renderer.domElement.width !== window.innerWidth ||

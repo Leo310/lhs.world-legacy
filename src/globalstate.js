@@ -6,6 +6,7 @@ function Globalstate() {
   this.wheelPosition = 0;
   this.raycasting = false; // if true executes raycasting function
   this.clickedUuid = "";
+  this.hoveredUuid = "";
   this.mouseToRed = false;
   this.mouseDown = false;
   this.wordcloudchanged = false;

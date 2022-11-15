@@ -89,6 +89,10 @@ Skills.prototype.update = function() {
       if (child.isMesh && globalstateobj.clickedUuid === child.uuid) {
         globalstateobj.clickedUuid = "";
         this.clicked = true;
+      } else if (child.uuid === globalstateobj.hoveredUuid) {
+        globalstateobj.hoveredUuid = "";
+        globalstateobj.mouseToRed = true;
+        return false; // breaks
       }
     });
 

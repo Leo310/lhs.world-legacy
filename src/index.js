@@ -32,6 +32,8 @@ document.body.addEventListener("wheel", (e) => {
   globalstateobj.wheelPosition += e.deltaY;
 }, { passive: true });
 
+document.body.addEventListener("mousemove", () => globalstateobj.raycasting = true)
+
 window.onscroll = () => {
   globalstateobj.scrollPositionBody = window.scrollY;
 }

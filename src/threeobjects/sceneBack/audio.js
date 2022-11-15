@@ -88,6 +88,10 @@ Audio.prototype.update = function() {
         default:
       }
       return false; // breaks
+    } else if (icon.mesh.uuid === globalstateobj.hoveredUuid) {
+      globalstateobj.hoveredUuid = "";
+      globalstateobj.mouseToRed = true;
+      return false; // breaks
     }
     return true;
   });
