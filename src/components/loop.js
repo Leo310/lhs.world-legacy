@@ -85,15 +85,13 @@ class Loop extends React.Component {
         if (now - this.lastArrowPressedTime > 500 || this.needDoubleScroll) {
             this.needDoubleScroll = false;
             let contratio = this.loop.scrollTop / this.loopcontentheight - this.loopContentIndex;
-            console.log('remainder: ' + Math.round((this.loop.scrollTop - 1) % this.loopcontentheight) + '  dir:' + dir);
-            if ((now - this.arrowPressedTime < 300 || contratio > 0.3) && (dir > 0 || Math.round((this.loop.scrollTop - 1) % this.loopcontentheight) === 0)) {
+            if ((now - this.arrowPressedTime < 300 || contratio > 0.3) && (dir > 0 || Math.round(this.loop.scrollTop - 1) % this.loopcontentheight === 0)) {
                 this.loopContentIndex += dir;
-                console.log('penis');
             } else if (now - this.arrowPressedTime > 300 && contratio > 0.7) {
                 this.loopContentIndex++;
             }
 
-            console.log(this.loopContentIndex);
+            console.log('ContentIndex: ' + this.loopContentIndex);
             // Checking for out of bounds index:
             if (this.loopContentIndex > this.loopcontents.length - 1) {
                 this.loop.scrollTo(0, 1);

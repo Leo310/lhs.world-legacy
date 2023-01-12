@@ -171,7 +171,7 @@ h1 {
     transform: translateY(-0.3vw);
 }
 #uparrow:active {
-    transform: translateY(-2vw);
+    transform: translateY(-1vw);
 }
 
 #downarrow {
@@ -185,7 +185,7 @@ h1 {
     transform: translateY(0.3vw);
 }
 #downarrow:active {
-    transform: translateY(2vw);
+    transform: translateY(1vw);
 }
 
 #loopcontrolls {
