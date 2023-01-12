@@ -244,6 +244,7 @@ h1 {
     position: absolute;
     left: 50%;
     top: 90%;
+    width: 5.5vw;
     transform: translate(-50%, -50%);
     visibility: hidden;
     transition: 0.1s ease-in-out;

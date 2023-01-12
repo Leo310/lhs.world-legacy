@@ -187,7 +187,7 @@ class Loop extends React.Component {
                             <br />
                             <br />
                             <h1>Chill Vibes</h1>
-                            <p>To enjoy the ride you can listen to some spacey music.</p>
+                            <p>To enjoy the ride you can listen to some chill spacey music.</p>
                         </div>
                         <div className="loopcontent">
                             <br />

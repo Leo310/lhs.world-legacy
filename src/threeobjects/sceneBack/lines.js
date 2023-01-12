@@ -30,7 +30,7 @@ export default function Lines() {
     this.lines = [];
 }
 
-Lines.prototype.addLine = function (position, back) {
+Lines.prototype.addLine = function(position, back) {
     let line = new THREE.Line(
         new THREE.BufferGeometry().setFromPoints(this.points[position]),
         new THREE.LineBasicMaterial({
@@ -48,7 +48,7 @@ Lines.prototype.addLine = function (position, back) {
     this.moveBy = 0;
 };
 
-Lines.prototype.translateLines = function (speed) {
+Lines.prototype.translateLines = function(speed) {
     this.lines.forEach((line, index, lines) => {
         if (line.isLine) {
             line.translateZ(speed);
@@ -62,7 +62,7 @@ Lines.prototype.translateLines = function (speed) {
     });
 };
 
-Lines.prototype.update = function () {
+Lines.prototype.update = function() {
     // scroll if scroll wheel is spinned. Even if already on bottom of page
     let scrollDiff = globalstateobj.scrollPositionBody - this.lastScrollPosition || globalstateobj.wheelPosition - this.lastWheelPosition;
     if (scrollDiff > 0) {

@@ -12,8 +12,8 @@ class Name extends React.Component {
         // this.randomstring = "  ⁋efhijlmnorstuvw$%#?";
         this.state = { name: '' };
         this.clicked = false;
-        this.animationTime = 1500;
-        this.refreshRate = 80;
+        this.animationTime = 1000;
+        this.refreshRate = 60;
         this.randomizeName = this.randomizeName.bind(this);
         this.myFirstName = 'Leonard ';
         this.mySecondName = 'Heininger';

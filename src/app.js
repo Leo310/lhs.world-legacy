@@ -15,9 +15,6 @@ function App() {
             <audio className="audio">
                 <source src={require('./resources/music/music0.wav')} />
             </audio>
-            <audio className="audio">
-                <source src={require('./resources/music/music2.mp3')} />
-            </audio>
             <Name />
             <img
                 id="scrolldown"
