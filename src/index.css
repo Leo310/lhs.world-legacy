@@ -181,7 +181,7 @@ h1 {
 }
 
 #uparrow {
-    /* visibility: hidden; */
+    visibility: hidden;
     display: block;
     margin-left: auto;
     margin-right: auto;
