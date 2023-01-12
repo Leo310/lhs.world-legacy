@@ -91,16 +91,13 @@ class Loop extends React.Component {
                 this.loopContentIndex++;
             }
 
-            console.log('ContentIndex: ' + this.loopContentIndex);
             // Checking for out of bounds index:
             if (this.loopContentIndex > this.loopcontents.length - 1) {
                 this.loop.scrollTo(0, 1);
-                console.log('Scroll dwon');
                 // need this double scroll because we cant scroll twice in one function call
                 setTimeout(() => this.scrollToNextDiv(1), 0);
                 this.needDoubleScroll = true;
             } else if (this.loopContentIndex < 0) {
-                console.log('Scroll up');
                 this.loop.scrollBy(0, -1);
                 setTimeout(() => this.scrollToNextDiv(-1), 0);
                 this.needDoubleScroll = true;
@@ -189,8 +186,8 @@ class Loop extends React.Component {
                         <div className="loopcontent">
                             <br />
                             <br />
-                            <h1>Some Music</h1>
-                            <p>To enjoy the ride on my site you can listen to some chill spacey music.</p>
+                            <h1>Chill Vibes</h1>
+                            <p>To enjoy the ride you can listen to some spacey music.</p>
                         </div>
                         <div className="loopcontent">
                             <br />
@@ -201,8 +198,8 @@ class Loop extends React.Component {
                         <div className="loopcontent">
                             <br />
                             <br />
-                            <h1>Things I find</h1>
-                            <h1>interesting</h1>
+                            <h1>Interesting</h1>
+                            <h1>Stuff</h1>
                         </div>
                         <div className="loopcontent">
                             <br />

@@ -8,7 +8,7 @@ class Name extends React.Component {
     };
     constructor(props) {
         super(props);
-        this.randomstring = '  ¿⁋adeghilnor$ΛΔ.Ω%#?';
+        this.randomstring = '  adegmhilnor$@!.%#?';
         // this.randomstring = "  ⁋efhijlmnorstuvw$%#?";
         this.state = { name: '' };
         this.clicked = false;

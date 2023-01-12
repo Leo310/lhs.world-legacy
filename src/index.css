@@ -1,4 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@500&display=swap');
+@font-face {
+    font-family: 'Noto Sans Mono';
+    src: local('Noto Sans Mono Medium'), local('NotoSansMono-Medium'), url(https://fonts.gstatic.com/s/notosansmono/v13/Pby6FmXiEBPT4ITbgNA5C);
+}
+@font-face {
+    font-family: 'MaFont';
+    src: local('MaFont'), url('./resources/fonts/deacon-blues-font/DeaconBlues-gxJqP.otf') format('opentype');
+}
+/* @font-face { */
+/*     font-family: 'MaFont'; */
+/*     src: local('MaFont'), url('./resources/fonts/nicomedia-font/NicomediaLaserItalic-jEVdl.otf') format('opentype'); */
+/* } */
+/* @font-face { */
+/*     font-family: 'MaFont'; */
+/*     src: local('MaFont'), url('./resources/fonts/normandy-beach-font/NormandyBeach-rgG6B.otf') format('opentype'); */
+/* } */
 
 /* Hide scrollbar and keep functionality for Chrome, Safari and Opera */
 ::-webkit-scrollbar {
@@ -8,12 +23,16 @@
     /* include padding and border in width/height calculations */
     box-sizing: border-box;
     -moz-box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 
     /* Hide scrollbar for IE, Edge and Firefox */
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
 
-    font-family: 'Noto Sans Mono', monospace;
+    font-family: 'Noto Sans Mono';
+    font-weight: 100;
 }
 
 :root {
@@ -69,10 +88,12 @@ body {
 }
 
 h1 {
+    font-family: 'MaFont';
     background-position: 0% top;
     background: linear-gradient(to bottom, var(--text-fade) 40%, var(--text-color) 60%);
     -webkit-background-clip: text;
     -moz-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     -moz-text-fill-color: transparent;
     margin: 0;
