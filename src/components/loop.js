@@ -3,6 +3,7 @@ import React from 'react';
 import globalstateobj from '../globalstate';
 
 import WordcloudForm from './wordcloudform';
+import ScrumbleHeader from './scrumbleheader';
 
 class Loop extends React.Component {
     state = { borderAnimation: '', scrollAnimationUp: false, scrollAnimationDown: false };
@@ -16,17 +17,20 @@ class Loop extends React.Component {
         this.scrollanimationfinished = true;
 
         this.loopContentIndex = 0;
-        this.lastFocusedContentIndex = 0;
+        this.lastScrumbleheaderIndex = 0;
         this.lastArrowPressedTime = 0;
         this.scrolling = null;
         this.mouseDown = false;
+        this.scrumbleheaderrefs = [];
     }
     componentDidMount() {
         this.loopcontents = document.getElementsByClassName('loopcontent');
+        for (let i = 0; i < this.loopcontents.length - 1; i++) this.scrumbleheaderrefs.push(React.createRef());
         this.loopcontentheight = this.loopcontents[0].clientHeight;
         this.clones = document.getElementsByClassName('isclone');
         this.clonesHeight = this.loopcontentheight * this.clones.length;
 
+        this.isVisible = this.isVisible.bind(this);
         this.loop = document.getElementById('loop');
         // if scrolled in loopcontent, dont want to trigger wheel event in body.
         // thats why second listener on wheel which stops propagation and set to true
@@ -36,13 +40,27 @@ class Loop extends React.Component {
         this.scrollHeight = this.loop.scrollHeight;
         // console.log(this.scrollHeight);
         this.disableScrollCheck = false;
+
+        window.addEventListener('scroll', this.isVisible);
+    }
+
+    isVisible() {
+        if (window.pageYOffset + window.innerHeight >= this.loop.offsetTop) {
+            window.removeEventListener('scroll', this.isVisible);
+            this.scrumbleheaderrefs[0].current.doScrumbleHeader();
+        }
     }
 
     onScroll() {
         this.scrollCheck();
         this.loopContentIndex = Math.floor(this.loop.scrollTop / this.loopcontentheight);
+        this.loopScrumbleHeaderIndex = Math.floor((this.loop.scrollTop + this.loopcontentheight / 2) / this.loopcontentheight);
+        if (this.loopScrumbleHeaderIndex !== this.lastScrumbleheaderIndex && this.loopScrumbleHeaderIndex !== this.loopcontents.length - 1) {
+            this.scrumbleheaderrefs[this.loopScrumbleHeaderIndex].current.doScrumbleHeader();
+            this.lastScrumbleheaderIndex = this.loopScrumbleHeaderIndex;
+        }
         // console.log("Scrolltop: " + this.loop.scrollTop);
-        // console.log("ContIndex: " + this.loopContentIndex)
+        console.log('ContIndex: ' + this.loopContentIndex);
 
         // scroll gets executed on page load somewhy
         if (this.onscroll && this.notfirstreloadscroll) {
@@ -180,31 +198,40 @@ class Loop extends React.Component {
                         <div className="loopcontent">
                             <br />
                             <br />
-                            <h1>Welcome to my</h1>
-                            <h1>World</h1>
+                            <ScrumbleHeader ref={this.scrumbleheaderrefs[0]} breakAt={14} onlyOnce={true} firstWord="Welcome to my World" />
                         </div>
                         <div className="loopcontent">
                             <br />
                             <br />
-                            <h1>Chill Vibes</h1>
+                            <ScrumbleHeader ref={this.scrumbleheaderrefs[1]} onlyOnce={true} firstWord="Chill Vibes" />
                             <p>To enjoy the ride you can listen to some chill spacey music.</p>
                         </div>
                         <div className="loopcontent">
                             <br />
                             <br />
-                            <h1>My Workspace</h1>
+                            <ScrumbleHeader ref={this.scrumbleheaderrefs[2]} onlyOnce={true} firstWord="My Workspace" />
                             <p>If you don't have great sound, nice lights and a crazy PC, get it, NOW!</p>
                         </div>
                         <div className="loopcontent">
                             <br />
                             <br />
-                            <h1>Interesting</h1>
-                            <h1>Stuff</h1>
+                            <ScrumbleHeader ref={this.scrumbleheaderrefs[3]} onlyOnce={true} breakAt={11} firstWord="My Skills and Interests" />
+                            <br />
+                            <div style={{ justifyContent: 'center', display: 'flex', alignItems: 'center' }}>
+                                <img src={require('../resources/images/github.png')} style={{ width: '2vw' }} alt="Github:" />
+                                <a href="https://github.com/Leo310" target="_">
+                                    GitHub/Leo310
+                                </a>
+                            </div>
                         </div>
                         <div className="loopcontent">
                             <br />
                             <br />
+                            <ScrumbleHeader ref={this.scrumbleheaderrefs[4]} onlyOnce={true} firstWord="Ty &lt;3" />
                             <WordcloudForm />
+                            <br />
+                            <p>Contact:</p>
+                            <a href="mailto:leodev310@gmail.com">Mail</a>
                         </div>
                     </div>
                     <div className="isclone loopcontent">

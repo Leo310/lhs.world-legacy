@@ -50,7 +50,6 @@ class WordcloudForm extends React.Component {
         return (
             <>
                 <div>
-                    <h1>Ty &lt;3</h1>
                     {this.state.wordcloudfallback ? (
                         <div>
                             <p>The wordcloud is currently offline :(</p>

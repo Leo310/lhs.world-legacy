@@ -1,6 +1,7 @@
 import React from 'react';
 
 import globalstateobj from '../globalstate';
+import ScrumbleHeader from './scrumbleheader';
 
 class Name extends React.Component {
     state = {
@@ -8,98 +9,34 @@ class Name extends React.Component {
     };
     constructor(props) {
         super(props);
-        this.randomstring = '  adegmhilnor$@!.%#?';
-        // this.randomstring = "  ⁋efhijlmnorstuvw$%#?";
-        this.state = { name: '' };
-        this.clicked = false;
-        this.animationTime = 1000;
-        this.refreshRate = 60;
-        this.randomizeName = this.randomizeName.bind(this);
-        this.myFirstName = 'Leonard ';
-        this.mySecondName = 'Heininger';
-        this.myreversename = this.mySecondName.split('').reverse().join('');
-        this.switch = true;
 
         this.scrollImageAppear = false;
+        this.scrumbleheader = React.createRef();
     }
 
     componentDidMount() {
-        this.randomizeName();
-    }
-
-    randomizeName() {
-        this.setState({ active: 'on' });
-        this.time = 0;
-        if (this.switch) {
-            this.myFirstName = 'Hi, I ';
-            this.mySecondName = 'am... ';
-            this.myreversename = this.mySecondName.split('').reverse().join('');
-            this.switch = false;
-        } else {
-            this.myFirstName = 'Leonard ';
-            this.mySecondName = 'Heininger';
-            this.myreversename = this.mySecondName.split('').reverse().join('');
-            this.switch = true;
-        }
-        this.alreadyUsedCharSurName = new Map();
-        this.alreadyUsedCharName = new Map();
-        if (!this.clicked) this.timerId = setInterval(() => this.tick(), this.refreshRate);
-        this.clicked = true;
-    }
-
-    tick() {
-        this.time += this.refreshRate;
-        let randomFirstName = '<';
-        for (let i = 0; i < (this.time / this.animationTime) * this.myFirstName.length; i++) {
-            if (this.alreadyUsedCharSurName.get(i)) {
-                randomFirstName += this.alreadyUsedCharSurName.get(i);
-            } else {
-                let char = this.randomstring[Math.round(Math.random() * (this.randomstring.length - 1))];
-                randomFirstName += char;
-                if (this.myFirstName.includes(char)) {
-                    this.alreadyUsedCharSurName.set(this.myFirstName.indexOf(char), char);
-                }
-            }
-        }
-        let randomSecondName = '';
-        for (let i = 0; i < (this.time / this.animationTime) * this.mySecondName.length; i++) {
-            if (this.alreadyUsedCharName.get(i)) {
-                randomSecondName += this.alreadyUsedCharName.get(i);
-            } else {
-                let char = this.randomstring[Math.round(Math.random() * (this.randomstring.length - 1))];
-                randomSecondName += char;
-                if (this.myreversename.includes(char)) {
-                    this.alreadyUsedCharName.set(this.myreversename.indexOf(char), char);
-                }
-            }
-        }
-        randomSecondName = randomSecondName.split('').reverse().join('');
-        randomFirstName += randomSecondName + '>';
-
-        this.setState({ name: randomFirstName });
-        if (this.time >= this.animationTime) {
-            clearInterval(this.timerId);
-            this.setState({ active: 'off', name: ' ' + this.myFirstName + this.mySecondName + ' ' });
-            if (!this.scrollImageAppear) this.scrollImageAppear = true;
-            else document.getElementById('scrolldown').style.visibility = 'visible';
-            this.clicked = false;
-        }
+        this.scrumbleheader.current.doScrumbleHeader();
     }
 
     render() {
         return (
-            <div id="nameWrapper" className={`${this.state.active === 'on' ? 'animate-on' : 'animate-off'}`}>
-                <h1
-                    onClick={this.randomizeName}
+            <div id="nameWrapper" onClick={() => this.scrumbleheader.current.doScrumbleHeader()} className={`${this.state.active === 'on' ? 'animate-on' : 'animate-off'}`}>
+                <ScrumbleHeader
+                    ref={this.scrumbleheader}
+                    oncallback={() => this.setState({ active: 'on' })}
+                    offcallback={() => {
+                        this.setState({ active: 'o' });
+                        if (!this.scrollImageAppear) this.scrollImageAppear = true;
+                        else document.getElementById('scrolldown').style.visibility = 'visible';
+                    }}
                     onMouseLeave={() => (globalstateobj.mouseToRedFromHtml = false)}
                     onMouseOver={() => {
                         globalstateobj.mouseToRedFromHtml = true;
                         globalstateobj.mouseToRed = true;
                     }}
-                    className="name"
-                >
-                    {this.state.name}
-                </h1>
+                    firstWord="Hi, I am... "
+                    secondWord="Leonard Heininger"
+                />
             </div>
         );
     }
