@@ -217,7 +217,7 @@ class Loop extends React.Component {
                             <br />
                             <ScrumbleHeader ref={this.scrumbleheaderrefs[3]} onlyOnce={true} breakAt={11} firstWord="My Skills and Interests" />
                             <br />
-                            <div style={{ justifyContent: 'center', display: 'flex', alignItems: 'center' }}>
+                            <div style={{ justifyContent: 'center', display: 'flex', alignItems: 'center', gap: '0.5vw' }}>
                                 <img src={require('../resources/images/github.png')} style={{ width: '2vw' }} alt="Github:" />
                                 <a href="https://github.com/Leo310" target="_">
                                     GitHub/Leo310

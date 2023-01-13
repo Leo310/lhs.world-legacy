@@ -33,7 +33,7 @@ export default function Magazine() {
     this.lastTime = 0;
 }
 
-Magazine.prototype.update = function () {
+Magazine.prototype.update = function() {
     let frametime = (window.performance.now() - this.lastTime) / 1000;
 
     if (frametime >= 1 / this.updatesPerSecond) {
