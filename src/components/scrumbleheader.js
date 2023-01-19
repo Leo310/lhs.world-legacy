@@ -36,6 +36,7 @@ class ScrumbleHeader extends React.Component {
                     this.firstHalf = this.props.secondWord.substring(0, this.props.secondWord.length / 2);
                     this.secondHalf = this.props.secondWord.substring(this.props.secondWord.length / 2);
                     this.reverseheader = this.secondHalf.split('').reverse().join('');
+                    this.switch = true;
                 }
             }
             this.alreadyUsedCharSecondHalf = new Map();

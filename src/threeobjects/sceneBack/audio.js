@@ -3,17 +3,18 @@ import Icon from './icon';
 import globalstateobj from '../../globalstate';
 
 export default function Audio() {
+    this.origin = new THREE.Vector3(5, 0, 0);
     this.icons = [
-        new Icon(6, require('../../resources/textures/playbutton.png'), new THREE.Vector3(0, -4.7, 0)),
-        new Icon(6, require('../../resources/textures/pausebutton.png'), new THREE.Vector3(0, -4.7, 0)),
+        new Icon(6, require('../../resources/textures/playbutton.png'), new THREE.Vector3(0, -7.7, 0).add(this.origin)),
+        new Icon(6, require('../../resources/textures/pausebutton.png'), new THREE.Vector3(0, -7.7, 0).add(this.origin)),
         // new Icon(10, require("../../resources/circle.png")),
-        new Icon(4, require('../../resources/textures/nextbutton.png'), new THREE.Vector3(5.5, -4.7, 0)),
-        new Icon(4, require('../../resources/textures/previousbutton.png'), new THREE.Vector3(-5.5, -4.7, 0)),
-        new Icon(18.26, require('../../resources/textures/frame.png'), new THREE.Vector3(0.07, 0.5, -0.1)),
+        new Icon(4, require('../../resources/textures/nextbutton.png'), new THREE.Vector3(5.5, -7.7, 0).add(this.origin)),
+        new Icon(4, require('../../resources/textures/previousbutton.png'), new THREE.Vector3(-5.5, -7.7, 0).add(this.origin)),
     ];
     this.icons[1].mesh.visible = false;
     this.group = new THREE.Group();
     this.icons.forEach((icon) => this.group.add(icon.mesh));
+    this.group.add(new Icon(18.26, require('../../resources/textures/frameb.png'), new THREE.Vector3(0.01, -2.5, 0).add(this.origin)).mesh);
 
     this.audioElems = document.getElementsByClassName('audio');
     this.audioIndex = 0;
@@ -24,13 +25,15 @@ export default function Audio() {
 
     this.covers = [];
     for (let i = 0; i < this.audioElems.length; i++) {
-        let cover = new Icon(18, require('../../resources/music/cover' + (i + 1) + 'r.png'), new THREE.Vector3(0, 8, 0));
+        let cover = new Icon(18, require('../../resources/music/cover' + (i + 1) + 'r.png'), new THREE.Vector3(0, 5, 0).add(this.origin));
         cover.mesh.visible = false;
         this.covers.push(cover);
         this.group.add(cover.mesh);
 
         this.audioElems[i].addEventListener('ended', () => {
+            this.covers[this.audioIndex].mesh.visible = false;
             this.audioIndex++;
+            this.covers[this.audioIndex].mesh.visible = true;
             if (this.audioIndex === this.audioElems.length) this.audioIndex = 0;
             this.playAudio();
         });

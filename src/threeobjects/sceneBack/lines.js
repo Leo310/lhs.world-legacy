@@ -19,8 +19,7 @@ export default function Lines() {
 
     this.group.translateZ(-8);
     this.lines = [];
-    this.lineRate = 4;
-    this.lineSpeed = 2;
+    this.lineRate = 8;
     this.accurateScrollPosition = 0;
 
     this.farestZIndex = 0;
@@ -28,24 +27,26 @@ export default function Lines() {
     this.addLine(0, false);
     this.addLine(1, false);
     this.lines = [];
+
+    this.movedBy = 0;
 }
 
-Lines.prototype.addLine = function(position, back) {
-    let line = new THREE.Line(
-        new THREE.BufferGeometry().setFromPoints(this.points[position]),
-        new THREE.LineBasicMaterial({
-            color: 0x8be9fd,
-            transparent: true,
-            linewidth: 2,
-        })
-    );
-    if (back) {
-        line.translateZ(this.farestZIndex);
+Lines.prototype.addLine = function(back) {
+    for (let i = 0; i < 2; i++) {
+        let line = new THREE.Line(
+            new THREE.BufferGeometry().setFromPoints(this.points[i]),
+            new THREE.LineBasicMaterial({
+                color: new THREE.Color(0x8be9fd).convertSRGBToLinear(),
+                transparent: true,
+                linewidth: 2,
+            })
+        );
+        if (back) {
+            line.translateZ(this.farestZIndex);
+        }
+        this.group.add(line);
+        this.lines.push(line);
     }
-    this.group.add(line);
-    this.lines.push(line);
-
-    this.moveBy = 0;
 };
 
 Lines.prototype.translateLines = function(speed) {
@@ -63,22 +64,29 @@ Lines.prototype.translateLines = function(speed) {
 };
 
 Lines.prototype.update = function() {
-    // scroll if scroll wheel is spinned. Even if already on bottom of page
+    // let scrollDiff = globalstateobj.scrollPositionBody - this.lastScrollPosition || globalstateobj.wheelPosition - this.lastWheelPosition;
+    // if (scrollDiff) {
+    //     this.movedBy += scrollDiff;
+    //     const addLines = Math.floor(Math.abs(this.movedBy) / 100);
+    //     // console.log('Addlines: ', addLines, '  movedBy: ', this.movedBy, '  lines: ', this.lines.length);
+    //     for (let i = 0; i < addLines; i++) {
+    //         this.addLine(scrollDiff < 0);
+    //         this.translateLines(addLines);
+    //     }
+    //     if (addLines > 0) this.movedBy = 0;
+    // }
+    // this.lastWheelPosition = globalstateobj.wheelPosition;
+    // this.lastScrollPosition = globalstateobj.scrollPositionBody;
+
+    // scroll if scroll wheel is spinned.Even if already on bottom of page
     let scrollDiff = globalstateobj.scrollPositionBody - this.lastScrollPosition || globalstateobj.wheelPosition - this.lastWheelPosition;
-    if (scrollDiff > 0) {
+    if (scrollDiff) {
         if (this.accurateScrollPosition % this.lineRate == 0) {
-            this.addLine(0, false);
-            this.addLine(1, false);
+            this.addLine(0, scrollDiff < 0);
+            this.addLine(1, scrollDiff < 0);
         }
-        this.translateLines(-this.lineSpeed);
-        this.accurateScrollPosition++;
-    } else if (scrollDiff < 0) {
-        if (this.accurateScrollPosition % this.lineRate == 0) {
-            this.addLine(0, true);
-            this.addLine(1, true);
-        }
-        this.translateLines(this.lineSpeed);
-        this.accurateScrollPosition--;
+        this.accurateScrollPosition += scrollDiff < 0 ? -1 : 1;
+        this.translateLines(scrollDiff < 0 ? 1 : -1);
     }
     this.lastWheelPosition = globalstateobj.wheelPosition;
     this.lastScrollPosition = globalstateobj.scrollPositionBody;

@@ -36,20 +36,22 @@ export default function Skills() {
     });
 
     this.group = new THREE.Group();
+    const texture = new THREE.TextureLoader().load(require('../../resources/textures/PB.png'));
+    texture.encoding = THREE.sRGBEncoding;
     let material = new THREE.MeshBasicMaterial({
-        map: new THREE.TextureLoader().load(require('../../resources/textures/PB.png')),
+        map: texture,
         // color: 0xbd93f9,
         // transparent: true,
         // side: THREE.DoubleSide,
     });
     let bottomtop = new THREE.MeshBasicMaterial({
-        color: 0x2f253e,
+        color: new THREE.Color(0x2f253e).convertSRGBToLinear(),
         // side: THREE.DoubleSide,
     });
     this.cube = new THREE.Mesh(new THREE.BoxGeometry(8, 8, 8), [material, material, bottomtop, bottomtop, material, material]);
     this.group.add(this.cube);
     // wireframe
-    this.wireframe = new THREE.LineSegments(new THREE.EdgesGeometry(this.cube.geometry), new THREE.LineBasicMaterial({ color: 0x8be9fd, linewidth: 2 }));
+    this.wireframe = new THREE.LineSegments(new THREE.EdgesGeometry(this.cube.geometry), new THREE.LineBasicMaterial({ color: 0x8be9fd /*0x50fa7b*/, linewidth: 2 }));
     this.wireframe.renderOrder = 1; // make sure wireframes are rendered 2nd
     this.group.add(this.wireframe);
     this.group.add(this.icongroup);
@@ -62,7 +64,7 @@ export default function Skills() {
     this.lastMouseXPos = 0;
 }
 
-Skills.prototype.rotateIcons = function (angle) {
+Skills.prototype.rotateIcons = function(angle) {
     let offset = 0;
     this.icongroup.children.forEach((icon) => {
         icon.position.x = Math.cos(angle - offset) * this.radius;
@@ -70,7 +72,7 @@ Skills.prototype.rotateIcons = function (angle) {
         offset += (360 / this.icons.length / 180) * Math.PI;
     });
 };
-Skills.prototype.update = function () {
+Skills.prototype.update = function() {
     let frametime = (window.performance.now() - this.lastTime) / 1000;
 
     if (frametime >= 1 / this.updatesPerSecond) {

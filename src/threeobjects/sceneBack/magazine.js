@@ -4,22 +4,22 @@ import globalstateobj from '../../globalstate';
 
 import Audio from './audio';
 import Wordcloud from './wordcloud';
-import MyRoom from './myroom';
+import Workspace from './workspace';
 import MyWorld from './myworld';
 import Skills from './skills';
 
 export default function Magazine() {
-    this.magazine = [new MyWorld(), new Wordcloud(), new Skills(), new MyRoom(), new Audio()];
+    this.magazine = [new MyWorld(), new Wordcloud(), new Skills(), new Workspace(), new Audio()];
     this.radius = 30;
 
-    this.outOfWindowOffset = 50;
+    this.outOfWindowOffset = 60;
     if (window.innerWidth > 768) {
-        this.targetOrigin = new THREE.Vector3(20, 10 + this.radius, 0);
+        this.targetOrigin = new THREE.Vector3(20, 8 + this.radius, 0);
     } else {
         this.targetOrigin = new THREE.Vector3(0, 15 + this.radius, 0);
     }
     this.origin = new THREE.Vector3(this.targetOrigin.x + this.outOfWindowOffset, this.targetOrigin.y + this.outOfWindowOffset, 0);
-    this.moveBy = new THREE.Vector3(this.targetOrigin.x + this.outOfWindowOffset, this.targetOrigin.y + this.outOfWindowOffset, 0); // for smoother scrolling
+    this.moveTo = new THREE.Vector3(this.targetOrigin.x + this.outOfWindowOffset, this.targetOrigin.y + this.outOfWindowOffset, 0); // for smoother scrolling
 
     this.updatesPerSecond = 60;
 
@@ -39,12 +39,12 @@ Magazine.prototype.update = function() {
     if (frametime >= 1 / this.updatesPerSecond) {
         // smoother fade in of magazine
         let scrollDiff = globalstateobj.scrollPositionBody - this.lastScrollPosition;
-        this.moveBy.sub({ x: scrollDiff / 19, y: scrollDiff / 19, z: 0 });
-        this.moveBy.min({ x: this.targetOrigin.x + this.outOfWindowOffset, y: this.targetOrigin.y + this.outOfWindowOffset, z: 0 });
-        this.moveBy.max(this.targetOrigin);
+        this.moveTo.sub({ x: scrollDiff / 19, y: scrollDiff / 19, z: 0 });
+        this.moveTo.min({ x: this.targetOrigin.x + this.outOfWindowOffset, y: this.targetOrigin.y + this.outOfWindowOffset, z: 0 });
+        this.moveTo.max(this.targetOrigin);
         let targetDiff = new THREE.Vector3();
-        targetDiff.subVectors(this.moveBy, this.origin);
-        this.origin.add(targetDiff.divide({ x: 3, y: 3, z: 1 }));
+        targetDiff.subVectors(this.moveTo, this.origin);
+        this.origin.add(targetDiff.divide({ x: 5, y: 5, z: 1 }));
 
         let offset = 0;
         this.group.children.forEach((bullet) => {

@@ -9,7 +9,7 @@ export default function MyRoom() {
         new THREE.SphereBufferGeometry(10, 15, 15),
         new THREE.MeshBasicMaterial({
             wireframeLinewidth: 2,
-            color: 0x8be9fd,
+            color: new THREE.Color(0x8be9fd).convertSRGBToLinear(),
             wireframe: true,
         })
     );
@@ -17,6 +17,6 @@ export default function MyRoom() {
     this.group.rotateZ((23.5 / 180) * Math.PI);
 }
 
-MyRoom.prototype.update = function () {
+MyRoom.prototype.update = function() {
     this.group.rotateY(0.005);
 };

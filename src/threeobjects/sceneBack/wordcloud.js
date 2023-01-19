@@ -9,14 +9,14 @@ export default function Wordcloud() {
     this.loader_t = new THREE.TextureLoader();
 }
 
-Wordcloud.prototype.update = function () {
+Wordcloud.prototype.update = function() {
     if (globalstateobj.wordcloudchanged) {
         // instantiate a loader
         this.loader_t.load(
             // resource URL
             globalstateobj.wordcloudurl,
             // Function when resource is loaded
-            function (texture) {
+            function(texture) {
                 this.mesh.material.map = texture;
                 this.mesh.material.needsUpdate = true;
             }.bind(this)
@@ -25,7 +25,8 @@ Wordcloud.prototype.update = function () {
     } else if (globalstateobj.wordcloudfallback) {
         this.loader_t.load(
             require('../../resources/textures/offline.png'),
-            function (texture) {
+            function(texture) {
+                texture.encoding = THREE.sRGBEncoding;
                 this.mesh.material.map = texture;
                 this.mesh.material.needsUpdate = true;
             }.bind(this)

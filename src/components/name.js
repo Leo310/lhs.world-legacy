@@ -20,7 +20,16 @@ class Name extends React.Component {
 
     render() {
         return (
-            <div id="nameWrapper" onClick={() => this.scrumbleheader.current.doScrumbleHeader()} className={`${this.state.active === 'on' ? 'animate-on' : 'animate-off'}`}>
+            <div
+                id="nameWrapper"
+                onClick={() => this.scrumbleheader.current.doScrumbleHeader()}
+                className={`${this.state.active === 'on' ? 'animate-on' : 'animate-off'}`}
+                onMouseLeave={() => (globalstateobj.mouseToRedFromHtml = false)}
+                onMouseOver={() => {
+                    globalstateobj.mouseToRedFromHtml = true;
+                    globalstateobj.mouseToRed = true;
+                }}
+            >
                 <ScrumbleHeader
                     ref={this.scrumbleheader}
                     oncallback={() => this.setState({ active: 'on' })}
@@ -28,11 +37,6 @@ class Name extends React.Component {
                         this.setState({ active: 'o' });
                         if (!this.scrollImageAppear) this.scrollImageAppear = true;
                         else document.getElementById('scrolldown').style.visibility = 'visible';
-                    }}
-                    onMouseLeave={() => (globalstateobj.mouseToRedFromHtml = false)}
-                    onMouseOver={() => {
-                        globalstateobj.mouseToRedFromHtml = true;
-                        globalstateobj.mouseToRed = true;
                     }}
                     firstWord="Hi, I am... "
                     secondWord="Leonard Heininger"
