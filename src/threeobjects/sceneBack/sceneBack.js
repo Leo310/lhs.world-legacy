@@ -47,7 +47,7 @@ export default function SceneBack(threecontainer) {
         edgeDetectionMode: EdgeDetectionMode.COLOR,
         predicationMode: PredicationMode.DEPTH,
     });
-    let selectiveBloom = new SelectiveBloomEffect(this.scene, this.camera, { mipmapBlur: true, luminanceThreshold: 0.1, luminanceSmoothing: 0.3, intensity: 4.0 });
+    let selectiveBloom = new SelectiveBloomEffect(this.scene, this.camera, { mipmapBlur: true, luminanceThreshold: 0.2, luminanceSmoothing: 0.3, intensity: 3.0 });
     selectiveBloom.ignoreBackground = true;
     this.bloomComposer.addPass(new RenderPass(this.scene, this.camera));
     this.bloomComposer.addPass(new EffectPass(this.camera, smaaEffect, selectiveBloom));

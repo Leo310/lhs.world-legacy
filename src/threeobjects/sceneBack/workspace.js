@@ -38,6 +38,9 @@ export default function Workspace() {
                 if (child.name.includes('Neon')) {
                     child.layers.enable(11); // 11: Bloom layer
                 }
+                if (child.name.includes('Fan')) {
+                    child.layers.enable(11); // 11: Bloom layer
+                }
             });
             // this.dirLight.position.set(this.myroomgroup.position.x + neonPosition.x, neonPosition.y, neonPosition.z);
             // const pos = this.myroomgroup.position;
